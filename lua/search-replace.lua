@@ -10,6 +10,7 @@ local M = {}
 -- * show selections in a window or something instead of just using print
 -- * catch errors when failing visual block selection
 -- * improve get_visual_selection()
+-- * implement multiple-buffer search/replace
 
 -- FIXME:
 local function get_visual_selection()
@@ -19,7 +20,7 @@ local function get_visual_selection()
 	local lines = vim.api.nvim_buf_get_lines(0, s_start[2] - 1, s_end[2], false)
 
 	if next(lines) == nil then
-		return ""
+		return "<no selection>"
 	end
 
 	lines[1] = string.sub(lines[1], s_start[3], -1)
@@ -37,21 +38,17 @@ local escape_characters = '"\\/.*$^~[]'
 
 local function search_replace_selections()
 	local cword = vim.fn.escape(vim.fn.expand("<cword>"), escape_characters)
-	local cWORD = vim.fn.escape(vim.fn.expand("<cWORD>"), escape_characters)
 	local cexpr = vim.fn.escape(vim.fn.expand("<cexpr>"), escape_characters)
 	local cfile = vim.fn.escape(vim.fn.expand("<cfile>"), escape_characters)
+	local cWORD = vim.fn.escape(vim.fn.expand("<cWORD>"), escape_characters)
 	local visual_selection = vim.fn.escape(get_visual_selection(), escape_characters)
 
 	print("SearchReplace selections")
-
-	print("c[w]ord: " .. cword)
-	print("c[W]ORD: " .. cWORD)
-	print("c[e]xpr: " .. cexpr)
-	print("c[f]ile: " .. cfile)
-
-	if visual_selection then
-		print("[v]isual: " .. visual_selection)
-	end
+	print("[w]ord: " .. cword)
+	print("[e]xpr: " .. cexpr)
+	print("[f]ile: " .. cfile)
+	print("[W]ORD: " .. cWORD)
+	print("[v]isual: " .. visual_selection)
 end
 
 -- double escaping is required due to interpretation by feedkeys and then search/replace
