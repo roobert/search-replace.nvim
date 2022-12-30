@@ -9,6 +9,8 @@ local buf, win
 local start_win
 
 local function set_mappings(cword, cexpr, cfile, cWORD, visual_selection)
+	-- FIXME:
+	-- * <>- are not being passed through for some reason..
 	local mappings = {
 		q = "close()",
 		w = "search_replace('" .. cword .. "')",
@@ -18,8 +20,6 @@ local function set_mappings(cword, cexpr, cfile, cWORD, visual_selection)
 		v = "search_replace('" .. visual_selection .. "')",
 	}
 
-	-- FIXME:
-	-- * allow remapping or clear mappings on close()..
 	for k, v in pairs(mappings) do
 		vim.api.nvim_buf_set_keymap(
 			buf,
@@ -84,7 +84,7 @@ local function get_visual_selection()
 	local lines = vim.api.nvim_buf_get_lines(0, s_start[2] - 1, s_end[2], false)
 
 	if next(lines) == nil then
-		return "<no selection>"
+		return "no selection"
 	end
 
 	lines[1] = string.sub(lines[1], s_start[3], -1)
@@ -99,7 +99,7 @@ local function get_visual_selection()
 end
 
 -- FIXME: how to handle <>'s, etc.
-local escape_characters = '"\\/.*$^~[]-<>'
+local escape_characters = '"\\/.*$^~[]'
 
 M.search_replace_selections = function()
 	local cword = vim.fn.expand("<cword>")
@@ -114,10 +114,10 @@ M.search_replace_selections = function()
 	create_win(cword, cexpr, cfile, cWORD, visual_selection)
 
 	local list = {}
-	table.insert(list, #list + 1, "[w]ord: " .. vim.fn.escape(cword, escape_characters))
-	table.insert(list, #list + 1, "[e]xpr: " .. vim.fn.escape(cexpr, escape_characters))
-	table.insert(list, #list + 1, "[f]ile: " .. vim.fn.escape(cfile, escape_characters))
-	table.insert(list, #list + 1, "[W]ORD: " .. vim.fn.escape(cWORD, escape_characters))
+	table.insert(list, #list + 1, "[w]ord:   " .. vim.fn.escape(cword, escape_characters))
+	table.insert(list, #list + 1, "[e]xpr:   " .. vim.fn.escape(cexpr, escape_characters))
+	table.insert(list, #list + 1, "[f]ile:   " .. vim.fn.escape(cfile, escape_characters))
+	table.insert(list, #list + 1, "[W]ORD:   " .. vim.fn.escape(cWORD, escape_characters))
 	table.insert(list, #list + 1, "[v]isual: " .. vim.fn.escape(visual_selection, escape_characters))
 
 	vim.api.nvim_buf_set_option(buf, "modifiable", true)
