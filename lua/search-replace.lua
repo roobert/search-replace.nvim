@@ -19,7 +19,7 @@ local function get_visual_selection()
 	local lines = vim.api.nvim_buf_get_lines(0, s_start[2] - 1, s_end[2], false)
 
 	if next(lines) == nil then
-		return nil
+		return ""
 	end
 
 	lines[1] = string.sub(lines[1], s_start[3], -1)
@@ -41,12 +41,16 @@ local function search_replace_selections()
 	local cexpr = vim.fn.escape(vim.fn.expand("<cexpr>"), escape_characters)
 	local cfile = vim.fn.escape(vim.fn.expand("<cfile>"), escape_characters)
 	local visual_selection = vim.fn.escape(get_visual_selection(), escape_characters)
+
+	print("SearchReplace selections")
+
 	print("c[w]ord: " .. cword)
 	print("c[W]ORD: " .. cWORD)
 	print("c[e]xpr: " .. cexpr)
 	print("c[f]ile: " .. cfile)
-	if not visual_selection == nil then
-		print("visual selection: " .. visual_selection)
+
+	if visual_selection then
+		print("[v]isual: " .. visual_selection)
 	end
 end
 
@@ -84,6 +88,7 @@ end
 local function setup_commands()
 	local cmd = vim.api.nvim_create_user_command
 
+	-- FIXME: range option is probably not required for every set of args here..
 	cmd("SearchReplaceSelections", search_replace_selections, { range = true })
 	cmd("SearchReplaceCWord", search_replace_cword, { range = true })
 	cmd("SearchReplaceCWORD", search_replace_cWORD, { range = true })
