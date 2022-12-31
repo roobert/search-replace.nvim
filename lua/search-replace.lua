@@ -170,6 +170,18 @@ M.search_replace = function(pattern)
 	)
 end
 
+local search_replace_block = function(pattern)
+	local left_keypresses = string.rep("\\<Left>", string.len(config["default_replace_options"]) + 1)
+	vim.cmd(
+		':call feedkeys(":s/'
+			.. double_escape(pattern)
+			.. "//"
+			.. config["default_replace_options"]
+			.. left_keypresses
+			.. '")'
+	)
+end
+
 M.search_replace_cword = function()
 	M.search_replace(vim.fn.expand("<cword>"))
 end
@@ -184,6 +196,10 @@ end
 
 M.search_replace_cfile = function()
 	M.search_replace(vim.fn.expand("<cfile>"))
+end
+
+M.search_replace_block = function()
+	search_replace_block(vim.fn.expand("<cword>"))
 end
 
 -- FIXME:
@@ -258,6 +274,7 @@ local function setup_commands()
 	cmd("SearchReplaceCExpr", M.search_replace_cexpr, {})
 	cmd("SearchReplaceCFile", M.search_replace_cfile, {})
 
+	cmd("SearchReplaceBlock", M.search_replace_block, { range = true })
 	cmd("SearchReplaceVisual", M.search_replace_visual, { range = true })
 
 	--
