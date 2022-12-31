@@ -10,6 +10,18 @@ number of key-strokes required to use it.
 This plugin provides commands that references the different built-in special selections
 along with a command which shows the values of each selection at any time.
 
+## Features
+
+* Allow pre-population of the search field using the values referenced by `special` keys (see: `:help cmdline-special`):
+  * `<cword>`
+  * `<cWORD>`
+  * `<cfile>`
+  * `<cexpr>`
+* Allow previewing the values of the `special` keys via a pop-up buffer prior to making
+  a substitution
+* Allow searching/replacing over multiple buffers
+* Allow using a visual-selection as the search string
+
 ## Usage
 
 ### Plugin Management
@@ -36,7 +48,9 @@ lvim.builtin.which_key.mappings["r"]["w"] = { "<CMD>SearchReplaceCWord<CR>", "Se
 lvim.builtin.which_key.mappings["r"]["W"] = { "<CMD>SearchReplaceCWORD<CR>", "SearchReplace [W]ORD" }
 lvim.builtin.which_key.mappings["r"]["e"] = { "<CMD>SearchReplaceCExpr<CR>", "SearchReplace [e]xpr" }
 lvim.builtin.which_key.mappings["r"]["f"] = { "<CMD>SearchReplaceCFile<CR>", "SearchReplace [f]ile" }
-lvim.builtin.which_key.mappings["r"]["v"] = { "<CMD>SearchReplaceVisual<CR>", "SearchReplace [v]isual" }
+
+lvim.keys.visual_block_mode["<C-b>"] = [[<CMD>SearchReplaceWithinBlock<CR>]]
+lvim.keys.visual_block_mode["<C-r>"] = [[<CMD>SearchReplaceVisualSelection<CR>]]
 
 lvim.builtin.which_key.mappings["r"]["b"] = { name = "SearchReplaceMultiBuffer" }
 lvim.builtin.which_key.mappings["r"]["b"]["s"] =
@@ -45,5 +59,4 @@ lvim.builtin.which_key.mappings["r"]["b"]["w"] = { "<CMD>SearchReplaceMultiBuffe
 lvim.builtin.which_key.mappings["r"]["b"]["W"] = { "<CMD>SearchReplaceMultiBufferCWORD<CR>", "SearchReplace [W]ORD" }
 lvim.builtin.which_key.mappings["r"]["b"]["e"] = { "<CMD>SearchReplaceMultiBufferCExpr<CR>", "SearchReplace [e]xpr" }
 lvim.builtin.which_key.mappings["r"]["b"]["f"] = { "<CMD>SearchReplaceMultiBufferCFile<CR>", "SearchReplace [f]ile" }
-lvim.builtin.which_key.mappings["r"]["b"]["v"] = { "<CMD>SearchReplaceMultiBufferVisual<CR>", "SearchReplace [v]isual" }
 ```
