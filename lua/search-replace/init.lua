@@ -2,12 +2,12 @@ M = {}
 
 local config = require("search-replace.config")
 local ui = require("search-replace.ui")
-local single_buffer = require("search-replace.single-buffer")
-local multi_buffer = require("search-replace.multi-buffer")
 
 local cmd = vim.api.nvim_create_user_command
 
 local function setup_commands_single_buffer()
+	local single_buffer = require("search-replace.single-buffer")
+
 	cmd("SearchReplaceSingleBufferSelections", ui.single_buffer_selections, {})
 
 	cmd("SearchReplaceSingleBufferCWord", single_buffer.cword, {})
@@ -29,6 +29,8 @@ local function setup_commands_single_buffer()
 end
 
 local function setup_commands_multi_buffer()
+	local multi_buffer = require("search-replace.multi-buffer")
+
 	cmd("SearchReplaceMultiBufferSelections", ui.multi_buffer_selections, {})
 
 	cmd("SearchReplaceMultiBufferCWord", multi_buffer.cword, {})
