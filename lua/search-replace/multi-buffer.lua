@@ -3,7 +3,7 @@ local M = {}
 local util = require("search-replace.util")
 local config = require("search-replace.config")
 
-local search_replace_multi_buffer = function(pattern)
+local search_replace = function(pattern)
 	local left_keypresses =
 		string.rep("\\<Left>", string.len(config.options["default_replace_multi_buffer_options"]) + 1)
 	vim.cmd(
@@ -27,20 +27,20 @@ M.search_replace_multi_buffer_visual_selection = function()
 	M.search_replace_multi_buffer(visual_selection)
 end
 
-M.search_replace_multi_buffer_cword = function()
-	search_replace_multi_buffer(vim.fn.expand("<cword>"))
+M.cword = function()
+	search_replace(vim.fn.expand("<cword>"))
 end
 
-M.search_replace_multi_buffer_cWORD = function()
-	search_replace_multi_buffer(vim.fn.expand("<cWORD>"))
+M.cWORD = function()
+	search_replace(vim.fn.expand("<cWORD>"))
 end
 
-M.search_replace_multi_buffer_cexpr = function()
-	search_replace_multi_buffer(vim.fn.expand("<cexpr>"))
+M.cexpr = function()
+	search_replace(vim.fn.expand("<cexpr>"))
 end
 
-M.search_replace_multi_buffer_cfile = function()
-	search_replace_multi_buffer(vim.fn.expand("<cfile>"))
+M.cfile = function()
+	search_replace(vim.fn.expand("<cfile>"))
 end
 
 return M
