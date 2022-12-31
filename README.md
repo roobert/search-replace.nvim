@@ -1,5 +1,7 @@
 # search-replace.nvim
 
+![a](https://user-images.githubusercontent.com/226654/210119753-8951db87-e7e1-48c7-a75d-e3c5f222d702.gif)
+
 A simple search/replace plugin that uses native vim search and replace.
 
 Neovim has super-powerful search and replace, however, it can be slow to use due to the
@@ -29,10 +31,10 @@ along with a command which shows the values of each selection at any time.
 
 ``` lua
 lvim.builtin.which_key.mappings["r"] = { name = "SearchReplace" }
-lvim.builtin.which_key.mappings["r"]["s"] = { "<CMD>SearchReplaceSelections<CR>", "SearchReplace show [s]elctions" }
+lvim.builtin.which_key.mappings["r"]["s"] = { "<CMD>SearchReplaceSelections<CR>", "SearchReplace [s]elction list" }
 lvim.builtin.which_key.mappings["r"]["w"] = { "<CMD>SearchReplaceCWord<CR>", "SearchReplace [w]ord" }
 lvim.builtin.which_key.mappings["r"]["W"] = { "<CMD>SearchReplaceCWORD<CR>", "SearchReplace [W]ORD" }
-lvim.builtin.which_key.mappings["r"]["v"] = { "<CMD>SearchReplaceVisual<CR>", "SearchReplace [v]isual selection" }
-lvim.builtin.which_key.mappings["r"]["e"] = { "<CMD>SearchReplaceCExpr<CR>", "SearchReplace c[e]xpr" }
+lvim.builtin.which_key.mappings["r"]["v"] = { "<CMD>SearchReplaceVisual<CR>", "SearchReplace [v]isual" }
+lvim.builtin.which_key.mappings["r"]["e"] = { "<CMD>SearchReplaceCExpr<CR>", "SearchReplace [e]xpr" }
 lvim.builtin.which_key.mappings["r"]["f"] = { "<CMD>SearchReplaceCFile<CR>", "SearchReplace [f]ile" }
 ```
