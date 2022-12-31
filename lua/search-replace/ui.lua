@@ -8,16 +8,16 @@ local buf, win
 
 local function set_keymap(mode, cword, cexpr, cfile, cWORD)
 	local search_replace_function = ""
+
 	if mode == "single" then
-		search_replace_function = "search_replace_single_buffer"
+		search_replace_function = "require('search-replace.single-buffer').search_replace"
 	elseif mode == "multi" then
-		search_replace_function = "search_replace_multi_buffer"
+		search_replace_function = "require('search-replace.multi-buffer').search_replace"
 	end
 
 	-- FIXME:
 	-- * <>- are not being passed through for some reason..
 	local mappings = {
-		q = "close()",
 		w = search_replace_function .. "('" .. cword .. "')",
 		e = search_replace_function .. "('" .. cexpr .. "')",
 		f = search_replace_function .. "('" .. cfile .. "')",
@@ -25,18 +25,18 @@ local function set_keymap(mode, cword, cexpr, cfile, cWORD)
 	}
 
 	for k, v in pairs(mappings) do
-		vim.api.nvim_buf_set_keymap(
-			buf,
-			"n",
-			k,
-			':lua require("search-replace").close()<cr> | :lua require("search-replace").' .. v .. "<cr>",
-			{
-				nowait = true,
-				noremap = true,
-				silent = true,
-			}
-		)
+		vim.api.nvim_buf_set_keymap(buf, "n", k, ':lua require("search-replace.ui").close()<cr> | :lua ' .. v .. "<cr>", {
+			nowait = true,
+			noremap = true,
+			silent = true,
+		})
 	end
+
+	vim.api.nvim_buf_set_keymap(buf, "n", "q", ":lua require('search-replace.ui').close()<cr>", {
+		nowait = true,
+		noremap = true,
+		silent = true,
+	})
 end
 
 local function create_win()
@@ -90,10 +90,10 @@ local function selections(mode)
 	set_keymap(mode, cword, cexpr, cfile, cWORD)
 
 	local list = {}
-	table.insert(list, #list + 1, "[w]ord:   " .. vim.fn.escape(cword, util.escape_characters))
-	table.insert(list, #list + 1, "[e]xpr:   " .. vim.fn.escape(cexpr, util.escape_characters))
-	table.insert(list, #list + 1, "[f]ile:   " .. vim.fn.escape(cfile, util.escape_characters))
-	table.insert(list, #list + 1, "[W]ORD:   " .. vim.fn.escape(cWORD, util.escape_characters))
+	table.insert(list, #list + 1, "[w]ord:   " .. cword)
+	table.insert(list, #list + 1, "[e]xpr:   " .. cexpr)
+	table.insert(list, #list + 1, "[f]ile:   " .. cfile)
+	table.insert(list, #list + 1, "[W]ORD:   " .. cWORD)
 
 	vim.api.nvim_buf_set_option(buf, "modifiable", true)
 	vim.api.nvim_buf_set_lines(buf, 0, -1, false, list)

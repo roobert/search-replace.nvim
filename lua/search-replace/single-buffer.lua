@@ -3,7 +3,7 @@ local M = {}
 local util = require("search-replace.util")
 local config = require("search-replace.config")
 
-local search_replace = function(pattern)
+M.search_replace = function(pattern)
 	local left_keypresses = string.rep("\\<Left>", string.len(config.options["default_replace_options"]) + 1)
 	vim.cmd(
 		':call feedkeys(":%s/'
@@ -39,19 +39,19 @@ M.visual_selection = function()
 end
 
 M.cword = function()
-	search_replace(vim.fn.expand("<cword>"))
+	M.search_replace(vim.fn.expand("<cword>"))
 end
 
 M.cWORD = function()
-	search_replace(vim.fn.expand("<cWORD>"))
+	M.search_replace(vim.fn.expand("<cWORD>"))
 end
 
 M.cexpr = function()
-	search_replace(vim.fn.expand("<cexpr>"))
+	M.search_replace(vim.fn.expand("<cexpr>"))
 end
 
 M.cfile = function()
-	search_replace(vim.fn.expand("<cfile>"))
+	M.search_replace(vim.fn.expand("<cfile>"))
 end
 
 return M
