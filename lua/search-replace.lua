@@ -219,8 +219,6 @@ end
 -- multi-buffer
 --
 
--- FIXME:
--- * generate number of Lefts from count config opt
 M.search_replace_multi_buffer = function(pattern)
 	local left_keypresses = string.rep("\\<Left>", string.len(config["default_replace_multi_buffer_options"]) + 1)
 	vim.cmd(
