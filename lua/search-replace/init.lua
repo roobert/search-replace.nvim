@@ -8,12 +8,12 @@ local multi_buffer = require("search-replace.multi-buffer")
 local cmd = vim.api.nvim_create_user_command
 
 local function setup_commands_single_buffer()
-	cmd("SearchReplaceSingleBufferSelections", ui.search_replace_single_buffer_selections, {})
+	cmd("SearchReplaceSingleBufferSelections", ui.single_buffer_selections, {})
 
-	cmd("SearchReplaceSingleBufferCWord", single_buffer.search_replace_single_buffer_cword, {})
-	cmd("SearchReplaceSingleBufferCWORD", single_buffer.search_replace_single_buffer_cWORD, {})
-	cmd("SearchReplaceSingleBufferCExpr", single_buffer.search_replace_single_buffer_cexpr, {})
-	cmd("SearchReplaceSingleBufferCFile", single_buffer.search_replace_single_buffer_cfile, {})
+	cmd("SearchReplaceSingleBufferCWord", single_buffer.cword, {})
+	cmd("SearchReplaceSingleBufferCWORD", single_buffer.cWORD, {})
+	cmd("SearchReplaceSingleBufferCExpr", single_buffer.cexpr, {})
+	cmd("SearchReplaceSingleBufferCFile", single_buffer.cfile, {})
 
 	-- cmd(
 	-- 	"SearchReplaceSingleBufferVisualSelection",
@@ -29,12 +29,12 @@ local function setup_commands_single_buffer()
 end
 
 local function setup_commands_multi_buffer()
-	cmd("SearchReplaceMultiBufferSelections", ui.search_replace_multi_buffer_selections, {})
+	cmd("SearchReplaceMultiBufferSelections", ui.multi_buffer_selections, {})
 
-	cmd("SearchReplaceMultiBufferCWord", multi_buffer.search_replace_multi_buffer_cword, {})
-	cmd("SearchReplaceMultiBufferCWORD", multi_buffer.search_replace_multi_buffer_cWORD, {})
-	cmd("SearchReplaceMultiBufferCExpr", multi_buffer.search_replace_multi_buffer_cexpr, {})
-	cmd("SearchReplaceMultiBufferCFile", multi_buffer.search_replace_multi_buffer_cfile, {})
+	cmd("SearchReplaceMultiBufferCWord", multi_buffer.cword, {})
+	cmd("SearchReplaceMultiBufferCWORD", multi_buffer.cWORD, {})
+	cmd("SearchReplaceMultiBufferCExpr", multi_buffer.cexpr, {})
+	cmd("SearchReplaceMultiBufferCFile", multi_buffer.cfile, {})
 
 	-- cmd(
 	-- 	"SearchReplaceMultiBufferVisualSelection",

@@ -77,7 +77,7 @@ M.close = function()
 	state["window_open"] = false
 end
 
-local function search_replace_selections(mode)
+local function selections(mode)
 	local cword = vim.fn.expand("<cword>")
 	local cexpr = vim.fn.expand("<cexpr>")
 	local cfile = vim.fn.expand("<cfile>")
@@ -100,13 +100,12 @@ local function search_replace_selections(mode)
 	vim.api.nvim_buf_set_option(buf, "modifiable", false)
 end
 
-M.search_replace_single_buffer_selections = function()
-	print("fuckfuck")
-	search_replace_selections("single")
+M.single_buffer_selections = function()
+	selections("single")
 end
 
-M.search_replace_multi_buffer_selections = function()
-	search_replace_selections("multi")
+M.multi_buffer_selections = function()
+	selections("multi")
 end
 
 return M

@@ -3,7 +3,7 @@ local M = {}
 local util = require("search-replace.util")
 local config = require("search-replace.config")
 
-local search_replace_single_buffer = function(pattern)
+local search_replace = function(pattern)
 	local left_keypresses = string.rep("\\<Left>", string.len(config.options["default_replace_options"]) + 1)
 	vim.cmd(
 		':call feedkeys(":%s/'
@@ -15,7 +15,7 @@ local search_replace_single_buffer = function(pattern)
 	)
 end
 
-M.search_replace_single_buffer_visual_selection = function()
+M.visual_selection = function()
 	local visual_selection = util.get_visual_selection()
 
 	if visual_selection == nil then
@@ -38,20 +38,20 @@ M.search_replace_single_buffer_visual_selection = function()
 	)
 end
 
-M.search_replace_single_buffer_cword = function()
-	search_replace_single_buffer(vim.fn.expand("<cword>"))
+M.cword = function()
+	search_replace(vim.fn.expand("<cword>"))
 end
 
-M.search_replace_single_buffer_cWORD = function()
-	search_replace_single_buffer(vim.fn.expand("<cWORD>"))
+M.cWORD = function()
+	search_replace(vim.fn.expand("<cWORD>"))
 end
 
-M.search_replace_single_buffer_cexpr = function()
-	search_replace_single_buffer(vim.fn.expand("<cexpr>"))
+M.cexpr = function()
+	search_replace(vim.fn.expand("<cexpr>"))
 end
 
-M.search_replace_single_buffer_cfile = function()
-	search_replace_single_buffer(vim.fn.expand("<cfile>"))
+M.cfile = function()
+	search_replace(vim.fn.expand("<cfile>"))
 end
 
 return M
