@@ -1,8 +1,3 @@
--- TODO:
--- * catch errors when failing visual block selection
--- * improve get_visual_selection()
--- * implement multiple-buffer search/replace
-
 local M = {}
 
 local state = { window_open = false }
@@ -10,20 +5,27 @@ local config = {}
 
 local buf, win
 
-local function set_keymap(cword, cexpr, cfile, cWORD, visual_selection)
+local function set_keymap(mode, cword, cexpr, cfile, cWORD, visual_selection)
 	if visual_selection == nil then
 		visual_selection = ""
+	end
+
+	local search_replace_function = ""
+	if mode == "single" then
+		search_replace_function = "search_replace"
+	elseif mode == "multi" then
+		search_replace_function = "search_replace_multi_buffer"
 	end
 
 	-- FIXME:
 	-- * <>- are not being passed through for some reason..
 	local mappings = {
 		q = "close()",
-		w = "search_replace('" .. cword .. "')",
-		e = "search_replace('" .. cexpr .. "')",
-		f = "search_replace('" .. cfile .. "')",
-		W = "search_replace('" .. cWORD .. "')",
-		v = "search_replace('" .. visual_selection .. "')",
+		w = search_replace_function .. "('" .. cword .. "')",
+		e = search_replace_function .. "('" .. cexpr .. "')",
+		f = search_replace_function .. "('" .. cfile .. "')",
+		W = search_replace_function .. "('" .. cWORD .. "')",
+		v = search_replace_function .. "('" .. visual_selection .. "')",
 	}
 
 	for k, v in pairs(mappings) do
@@ -110,7 +112,7 @@ end
 -- FIXME: how to handle <>'s, etc.
 local escape_characters = '"\\/.*$^~[]'
 
-M.search_replace_selections = function()
+local function search_replace_selections(mode)
 	local cword = vim.fn.expand("<cword>")
 	local cexpr = vim.fn.expand("<cexpr>")
 	local cfile = vim.fn.expand("<cfile>")
@@ -125,7 +127,7 @@ M.search_replace_selections = function()
 	-- * passing these around is not ideal..
 	-- * ideally <cword> etc. would not change when win/buf is opened..
 	create_win()
-	set_keymap(cword, cexpr, cfile, cWORD, visual_selection)
+	set_keymap(mode, cword, cexpr, cfile, cWORD, visual_selection)
 
 	local list = {}
 	table.insert(list, #list + 1, "[w]ord:   " .. vim.fn.escape(cword, escape_characters))
@@ -144,13 +146,27 @@ local function double_escape(str)
 	return vim.fn.escape(vim.fn.escape(str, escape_characters), escape_characters)
 end
 
+M.search_replace_selections = function()
+	search_replace_selections("single")
+end
+
+M.search_replace_multi_buffer_selections = function()
+	search_replace_selections("multi")
+end
+
+--
+-- single buffer
+--
+
 M.search_replace = function(pattern)
+	local left_keypresses = string.rep("\\<Left>", string.len(config["default_replace_options"]) + 1)
 	vim.cmd(
 		':call feedkeys(":%s/'
 			.. double_escape(pattern)
 			.. "//"
 			.. config["default_replace_options"]
-			.. '\\<Left>\\<Left>\\<Left>\\<Left>")'
+			.. left_keypresses
+			.. '")'
 	)
 end
 
@@ -170,6 +186,8 @@ M.search_replace_cfile = function()
 	M.search_replace(vim.fn.expand("<cfile>"))
 end
 
+-- FIXME:
+-- * this could be improved - selection entry for visual selection
 M.search_replace_visual = function()
 	local visual_selection = get_visual_selection()
 
@@ -181,8 +199,57 @@ M.search_replace_visual = function()
 	M.search_replace(get_visual_selection())
 end
 
+--
+-- multi-buffer
+--
+
+-- FIXME:
+-- * generate number of Lefts from count config opt
+M.search_replace_multi_buffer = function(pattern)
+	local left_keypresses = string.rep("\\<Left>", string.len(config["default_replace_multi_buffer_options"]) + 1)
+	vim.cmd(
+		':call feedkeys(":bufdo %s/'
+			.. double_escape(pattern)
+			.. "//"
+			.. config["default_replace_multi_buffer_options"]
+			.. left_keypresses
+			.. '")'
+	)
+end
+
+M.search_replace_multi_buffer_cword = function()
+	M.search_replace_multi_buffer(vim.fn.expand("<cword>"))
+end
+
+M.search_replace_multi_buffer_cWORD = function()
+	M.search_replace_multi_buffer(vim.fn.expand("<cWORD>"))
+end
+
+M.search_replace_multi_buffer_cexpr = function()
+	M.search_replace_multi_buffer(vim.fn.expand("<cexpr>"))
+end
+
+M.search_replace_multi_buffer_cfile = function()
+	M.search_replace_multi_buffer(vim.fn.expand("<cfile>"))
+end
+
+M.search_replace_multi_buffer_visual = function()
+	local visual_selection = get_visual_selection()
+
+	if visual_selection == nil then
+		print("search-replace does not support replacing visual blocks")
+		return
+	end
+
+	M.search_replace_multi_buffer(get_visual_selection())
+end
+
 local function setup_commands()
 	local cmd = vim.api.nvim_create_user_command
+
+	--
+	-- single buffer commands
+	--
 
 	cmd("SearchReplaceSelections", M.search_replace_selections, {})
 
@@ -192,13 +259,32 @@ local function setup_commands()
 	cmd("SearchReplaceCFile", M.search_replace_cfile, {})
 
 	cmd("SearchReplaceVisual", M.search_replace_visual, { range = true })
+
+	--
+	-- multi buffer
+	--
+
+	cmd("SearchReplaceMultiBufferSelections", M.search_replace_multi_buffer_selections, {})
+
+	cmd("SearchReplaceMultiBufferCWord", M.search_replace_multi_buffer_cword, {})
+	cmd("SearchReplaceMultiBufferCWORD", M.search_replace_multi_buffer_cWORD, {})
+	cmd("SearchReplaceMultiBufferCExpr", M.search_replace_multi_buffer_cexpr, {})
+	cmd("SearchReplaceMultiBufferCFile", M.search_replace_multi_buffer_cfile, {})
+
+	cmd("SearchReplaceMultiBufferVisual", M.search_replace_multi_buffer_visual, { range = true })
 end
 
 function M.setup(options)
 	config = options
+
 	if config["default_replace_options"] == nil then
 		config["default_replace_options"] = "gcI"
 	end
+
+	if config["default_replace_multi_buffer_options"] == nil then
+		config["default_replace_multi_buffer_options"] = "egcI"
+	end
+
 	setup_commands()
 end
 
