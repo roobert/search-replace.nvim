@@ -5,11 +5,7 @@ local config = {}
 
 local buf, win
 
-local function set_keymap(mode, cword, cexpr, cfile, cWORD, visual_selection)
-	if visual_selection == nil then
-		visual_selection = ""
-	end
-
+local function set_keymap(mode, cword, cexpr, cfile, cWORD)
 	local search_replace_function = ""
 	if mode == "single" then
 		search_replace_function = "search_replace"
@@ -25,7 +21,6 @@ local function set_keymap(mode, cword, cexpr, cfile, cWORD, visual_selection)
 		e = search_replace_function .. "('" .. cexpr .. "')",
 		f = search_replace_function .. "('" .. cfile .. "')",
 		W = search_replace_function .. "('" .. cWORD .. "')",
-		v = search_replace_function .. "('" .. visual_selection .. "')",
 	}
 
 	for k, v in pairs(mappings) do
@@ -53,7 +48,7 @@ local function create_win()
 
 	-- FIXME:
 	-- * auto-calculate window buffer size
-	vim.api.nvim_command("6split +enew")
+	vim.api.nvim_command("5split +enew")
 
 	win = vim.api.nvim_get_current_win()
 	buf = vim.api.nvim_get_current_buf()
@@ -117,24 +112,18 @@ local function search_replace_selections(mode)
 	local cexpr = vim.fn.expand("<cexpr>")
 	local cfile = vim.fn.expand("<cfile>")
 	local cWORD = vim.fn.expand("<cWORD>")
-	local visual_selection = get_visual_selection()
-
-	if visual_selection == nil then
-		visual_selection = ""
-	end
 
 	-- FIXME:
 	-- * passing these around is not ideal..
 	-- * ideally <cword> etc. would not change when win/buf is opened..
 	create_win()
-	set_keymap(mode, cword, cexpr, cfile, cWORD, visual_selection)
+	set_keymap(mode, cword, cexpr, cfile, cWORD)
 
 	local list = {}
 	table.insert(list, #list + 1, "[w]ord:   " .. vim.fn.escape(cword, escape_characters))
 	table.insert(list, #list + 1, "[e]xpr:   " .. vim.fn.escape(cexpr, escape_characters))
 	table.insert(list, #list + 1, "[f]ile:   " .. vim.fn.escape(cfile, escape_characters))
 	table.insert(list, #list + 1, "[W]ORD:   " .. vim.fn.escape(cWORD, escape_characters))
-	table.insert(list, #list + 1, "[v]isual: " .. vim.fn.escape(visual_selection, escape_characters))
 
 	vim.api.nvim_buf_set_option(buf, "modifiable", true)
 	vim.api.nvim_buf_set_lines(buf, 0, -1, false, list)
@@ -170,7 +159,30 @@ M.search_replace = function(pattern)
 	)
 end
 
-local search_replace_block = function(pattern)
+M.search_replace_visual_selection = function()
+	local visual_selection = get_visual_selection()
+
+	if visual_selection == nil then
+		print("search-replace does not support replacing visual blocks")
+		return
+	end
+
+	local backspace_keypresses = string.rep("\\<backspace>", 5)
+	local left_keypresses = string.rep("\\<Left>", string.len(config["default_replace_options"]) + 1)
+
+	vim.cmd(
+		':call feedkeys(":'
+			.. backspace_keypresses
+			.. "%s/"
+			.. double_escape(visual_selection)
+			.. "//"
+			.. config["default_replace_options"]
+			.. left_keypresses
+			.. '")'
+	)
+end
+
+local search_replace_within_block = function(pattern)
 	local left_keypresses = string.rep("\\<Left>", string.len(config["default_replace_options"]) + 1)
 	vim.cmd(
 		':call feedkeys(":s/'
@@ -198,21 +210,11 @@ M.search_replace_cfile = function()
 	M.search_replace(vim.fn.expand("<cfile>"))
 end
 
-M.search_replace_block = function()
-	search_replace_block(vim.fn.expand("<cword>"))
-end
-
 -- FIXME:
--- * this could be improved - selection entry for visual selection
-M.search_replace_visual = function()
-	local visual_selection = get_visual_selection()
-
-	if visual_selection == nil then
-		print("search-replace does not support replacing visual blocks")
-		return
-	end
-
-	M.search_replace(get_visual_selection())
+-- * is this a good feature?
+-- * do we need implementations for cfile/cWORD/cexpr too?
+M.search_replace_within_block = function()
+	search_replace_within_block(vim.fn.expand("<cword>"))
 end
 
 --
@@ -272,8 +274,8 @@ local function setup_commands()
 	cmd("SearchReplaceCExpr", M.search_replace_cexpr, {})
 	cmd("SearchReplaceCFile", M.search_replace_cfile, {})
 
-	cmd("SearchReplaceBlock", M.search_replace_block, { range = true })
-	cmd("SearchReplaceVisual", M.search_replace_visual, { range = true })
+	cmd("SearchReplaceWithinBlock", M.search_replace_within_block, { range = true })
+	cmd("SearchReplaceVisualSelection", M.search_replace_visual_selection, { range = true })
 
 	--
 	-- multi buffer
