@@ -42,15 +42,21 @@ along with a command which shows the values of each selection at any time.
 #### Lunarvim / Which-Key
 
 ``` lua
-lvim.builtin.which_key.mappings["r"] = { name = "SearchReplace" }
-lvim.builtin.which_key.mappings["r"]["s"] = { "<CMD>SearchReplaceSelections<CR>", "SearchReplace [s]elction list" }
-lvim.builtin.which_key.mappings["r"]["w"] = { "<CMD>SearchReplaceCWord<CR>", "SearchReplace [w]ord" }
-lvim.builtin.which_key.mappings["r"]["W"] = { "<CMD>SearchReplaceCWORD<CR>", "SearchReplace [W]ORD" }
-lvim.builtin.which_key.mappings["r"]["e"] = { "<CMD>SearchReplaceCExpr<CR>", "SearchReplace [e]xpr" }
-lvim.builtin.which_key.mappings["r"]["f"] = { "<CMD>SearchReplaceCFile<CR>", "SearchReplace [f]ile" }
-lvim.builtin.which_key.mappings["r"]["b"] = { "<CMD>SearchReplaceBlock<CR>", "SearchReplace [b]lock" }
-lvim.keys.visual_block_mode["<C-b>"] = [[<CMD>SearchReplaceWithinBlock<CR>]]
-lvim.keys.visual_block_mode["<C-r>"] = [[<CMD>SearchReplaceVisualSelection<CR>]]
+lvim.builtin.which_key.mappings["r"] = { name = "SearchReplaceSingleBuffer" }
+lvim.builtin.which_key.mappings["r"]["s"] =
+ { "<CMD>SearchReplaceSingleBufferSelections<CR>", "SearchReplaceSingleBuffer [s]elction list" }
+lvim.builtin.which_key.mappings["r"]["w"] =
+ { "<CMD>SearchReplaceSingleBufferCWord<CR>", "SearchReplaceSingleBuffer [w]ord" }
+lvim.builtin.which_key.mappings["r"]["W"] =
+ { "<CMD>SearchReplaceSingleBufferCWORD<CR>", "SearchReplaceSingleBuffer [W]ORD" }
+lvim.builtin.which_key.mappings["r"]["e"] =
+ { "<CMD>SearchReplaceSingleBufferCExpr<CR>", "SearchReplaceSingleBuffer [e]xpr" }
+lvim.builtin.which_key.mappings["r"]["f"] =
+ { "<CMD>SearchReplaceSingleBufferCFile<CR>", "SearchReplaceSingleBuffer [f]ile" }
+lvim.builtin.which_key.mappings["r"]["b"] =
+ { "<CMD>SearchReplaceSingleBufferBlock<CR>", "SearchReplaceSingleBuffer [b]lock" }
+lvim.keys.visual_block_mode["<C-b>"] = [[<CMD>SearchReplaceSingleBufferWithinBlock<CR>]]
+lvim.keys.visual_block_mode["<C-r>"] = [[<CMD>SearchReplaceSingleBufferVisualSelection<CR>]]
 
 lvim.builtin.which_key.mappings["r"]["b"] = { name = "SearchReplaceMultiBuffer" }
 lvim.builtin.which_key.mappings["r"]["b"]["s"] =
