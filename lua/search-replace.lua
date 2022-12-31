@@ -5,10 +5,16 @@
 
 local M = {}
 
-local buf, win
-local start_win
+local state = { window_open = false }
+local config = {}
 
-local function set_mappings(cword, cexpr, cfile, cWORD, visual_selection)
+local buf, win
+
+local function set_keymap(cword, cexpr, cfile, cWORD, visual_selection)
+	if visual_selection == nil then
+		visual_selection = ""
+	end
+
 	-- FIXME:
 	-- * <>- are not being passed through for some reason..
 	local mappings = {
@@ -35,12 +41,16 @@ local function set_mappings(cword, cexpr, cfile, cWORD, visual_selection)
 	end
 end
 
--- FIXME:
--- * prevent opening new win/buf multiple times
--- * auto-calculate window buffer size
-local function create_win(cword, cexpr, cfile, cWORD, visual_selection)
-	start_win = vim.api.nvim_get_current_win()
+local function create_win()
+	if state["window_open"] then
+		print("search-replace selections window already open")
+		return
+	end
 
+	state["window_open"] = true
+
+	-- FIXME:
+	-- * auto-calculate window buffer size
 	vim.api.nvim_command("6split +enew")
 
 	win = vim.api.nvim_get_current_win()
@@ -48,39 +58,38 @@ local function create_win(cword, cexpr, cfile, cWORD, visual_selection)
 
 	vim.api.nvim_buf_set_name(buf, "SearchReplace selections")
 
-	vim.api.nvim_buf_set_option(buf, "modifiable", false)
-
 	vim.api.nvim_win_set_option(win, "wrap", false)
 	vim.api.nvim_win_set_option(win, "cursorline", true)
 	vim.api.nvim_win_set_option(win, "number", false)
 
-	--vim.api.nvim_buf_set_option(buf, "norelativenumber", true)
-
+	-- FIXME:
+	-- * vim.api.nvim_buf_set_option(buf, "norelativenumber", true)
 	vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
 	vim.api.nvim_buf_set_option(buf, "swapfile", false)
 	vim.api.nvim_buf_set_option(buf, "bufhidden", "wipe")
 	vim.api.nvim_buf_set_option(buf, "filetype", "nvim-search-replace")
-
-	set_mappings(cword, cexpr, cfile, cWORD, visual_selection)
+	vim.api.nvim_buf_set_option(buf, "modifiable", false)
 end
 
 M.close = function()
 	if win and vim.api.nvim_win_is_valid(win) then
 		vim.api.nvim_win_close(win, true)
 	end
+
+	state["window_open"] = false
 end
 
--- local function get_visual_selection()
--- 	local _, ls, cs = unpack(vim.fn.getpos("v"))
--- 	local _, le, ce = unpack(vim.fn.getpos("."))
--- 	return table.contact(vim.api.nvim_buf_get_text(0, ls - 1, cs - 1, le - 1, ce, {}), "\n")
--- end
-
 -- FIXME:
+-- * improve this
 local function get_visual_selection()
 	local s_start = vim.fn.getpos("'<")
 	local s_end = vim.fn.getpos("'>")
 	local n_lines = math.abs(s_end[2] - s_start[2]) + 1
+
+	if n_lines > 1 then
+		return nil
+	end
+
 	local lines = vim.api.nvim_buf_get_lines(0, s_start[2] - 1, s_end[2], false)
 
 	if next(lines) == nil then
@@ -108,10 +117,15 @@ M.search_replace_selections = function()
 	local cWORD = vim.fn.expand("<cWORD>")
 	local visual_selection = get_visual_selection()
 
+	if visual_selection == nil then
+		visual_selection = ""
+	end
+
 	-- FIXME:
 	-- * passing these around is not ideal..
 	-- * ideally <cword> etc. would not change when win/buf is opened..
-	create_win(cword, cexpr, cfile, cWORD, visual_selection)
+	create_win()
+	set_keymap(cword, cexpr, cfile, cWORD, visual_selection)
 
 	local list = {}
 	table.insert(list, #list + 1, "[w]ord:   " .. vim.fn.escape(cword, escape_characters))
@@ -130,10 +144,14 @@ local function double_escape(str)
 	return vim.fn.escape(vim.fn.escape(str, escape_characters), escape_characters)
 end
 
--- FIXME:
--- * allow specifying the default end options?
 M.search_replace = function(pattern)
-	vim.cmd(':call feedkeys(":%s/' .. double_escape(pattern) .. '//gcI\\<Left>\\<Left>\\<Left>\\<Left>")')
+	vim.cmd(
+		':call feedkeys(":%s/'
+			.. double_escape(pattern)
+			.. "//"
+			.. config["default_replace_options"]
+			.. '\\<Left>\\<Left>\\<Left>\\<Left>")'
+	)
 end
 
 M.search_replace_cword = function()
@@ -152,26 +170,35 @@ M.search_replace_cfile = function()
 	M.search_replace(vim.fn.expand("<cfile>"))
 end
 
--- FIXME: visual mode works but visual-block should error
 M.search_replace_visual = function()
+	local visual_selection = get_visual_selection()
+
+	if visual_selection == nil then
+		print("search-replace does not support replacing visual blocks")
+		return
+	end
+
 	M.search_replace(get_visual_selection())
 end
 
 local function setup_commands()
 	local cmd = vim.api.nvim_create_user_command
 
-	-- FIXME:
-	-- * range option is probably not required for every set of args here..
-	-- * change these to use M.search_replace()?
-	cmd("SearchReplaceSelections", M.search_replace_selections, { range = true })
-	cmd("SearchReplaceCWord", M.search_replace_cword, { range = true })
-	cmd("SearchReplaceCWORD", M.search_replace_cWORD, { range = true })
-	cmd("SearchReplaceCExpr", M.search_replace_cexpr, { range = true })
-	cmd("SearchReplaceCFile", M.search_replace_cfile, { range = true })
+	cmd("SearchReplaceSelections", M.search_replace_selections, {})
+
+	cmd("SearchReplaceCWord", M.search_replace_cword, {})
+	cmd("SearchReplaceCWORD", M.search_replace_cWORD, {})
+	cmd("SearchReplaceCExpr", M.search_replace_cexpr, {})
+	cmd("SearchReplaceCFile", M.search_replace_cfile, {})
+
 	cmd("SearchReplaceVisual", M.search_replace_visual, { range = true })
 end
 
-function M.setup(_)
+function M.setup(options)
+	config = options
+	if config["default_replace_options"] == nil then
+		config["default_replace_options"] = "gcI"
+	end
 	setup_commands()
 end
 
