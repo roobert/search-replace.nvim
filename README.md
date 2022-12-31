@@ -48,15 +48,19 @@ lvim.builtin.which_key.mappings["r"]["w"] = { "<CMD>SearchReplaceCWord<CR>", "Se
 lvim.builtin.which_key.mappings["r"]["W"] = { "<CMD>SearchReplaceCWORD<CR>", "SearchReplace [W]ORD" }
 lvim.builtin.which_key.mappings["r"]["e"] = { "<CMD>SearchReplaceCExpr<CR>", "SearchReplace [e]xpr" }
 lvim.builtin.which_key.mappings["r"]["f"] = { "<CMD>SearchReplaceCFile<CR>", "SearchReplace [f]ile" }
-
+lvim.builtin.which_key.mappings["r"]["b"] = { "<CMD>SearchReplaceBlock<CR>", "SearchReplace [b]lock" }
 lvim.keys.visual_block_mode["<C-b>"] = [[<CMD>SearchReplaceWithinBlock<CR>]]
 lvim.keys.visual_block_mode["<C-r>"] = [[<CMD>SearchReplaceVisualSelection<CR>]]
 
 lvim.builtin.which_key.mappings["r"]["b"] = { name = "SearchReplaceMultiBuffer" }
 lvim.builtin.which_key.mappings["r"]["b"]["s"] =
- { "<CMD>SearchReplaceMultiBufferSelections<CR>", "SearchReplace [s]elction list" }
-lvim.builtin.which_key.mappings["r"]["b"]["w"] = { "<CMD>SearchReplaceMultiBufferCWord<CR>", "SearchReplace [w]ord" }
-lvim.builtin.which_key.mappings["r"]["b"]["W"] = { "<CMD>SearchReplaceMultiBufferCWORD<CR>", "SearchReplace [W]ORD" }
-lvim.builtin.which_key.mappings["r"]["b"]["e"] = { "<CMD>SearchReplaceMultiBufferCExpr<CR>", "SearchReplace [e]xpr" }
-lvim.builtin.which_key.mappings["r"]["b"]["f"] = { "<CMD>SearchReplaceMultiBufferCFile<CR>", "SearchReplace [f]ile" }
+ { "<CMD>SearchReplaceMultiBufferSelections<CR>", "SearchReplaceMultiBuffer [s]elction list" }
+lvim.builtin.which_key.mappings["r"]["b"]["w"] =
+ { "<CMD>SearchReplaceMultiBufferCWord<CR>", "SearchReplaceMultiBuffer [w]ord" }
+lvim.builtin.which_key.mappings["r"]["b"]["W"] =
+ { "<CMD>SearchReplaceMultiBufferCWORD<CR>", "SearchReplaceMultiBuffer [W]ORD" }
+lvim.builtin.which_key.mappings["r"]["b"]["e"] =
+ { "<CMD>SearchReplaceMultiBufferCExpr<CR>", "SearchReplaceMultiBuffer [e]xpr" }
+lvim.builtin.which_key.mappings["r"]["b"]["f"] =
+ { "<CMD>SearchReplaceMultiBufferCFile<CR>", "SearchReplaceMultiBuffer [f]ile" }
 ```
