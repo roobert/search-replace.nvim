@@ -30,6 +30,15 @@ This plugin adds commands which can be bound to keymaps, which-key, and/or
 
 ![Search and Replace](https://user-images.githubusercontent.com/226654/210172762-43f8e985-c6ea-4ab2-9c5a-1e9e303ce9d7.gif)
 
+``` lua
+<leader>ro           # - open which-key 'replace' sub-menu, then 'open' a search
+lvim                 # - term to search
+example_replacement  # - term to replace with
+yyyynnyy<esc>        # - since 'c' flag is supplied to search/replace, confirm which
+                     #   matches to search and replace
+<leader>h            # - finish by disabling highlighting
+```
+
 ### Search and Replace with Special Keys
 
 ### Search and Replace with Special Keys and Search Hinting UI
