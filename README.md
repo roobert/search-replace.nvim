@@ -63,8 +63,8 @@ uuuuuu               # - undo changes
                      # - move to end of expression to replace
 <leader>rs           # - open which-key 'replace' sub-menu, then 'selections' UI
 e                    # - specify '[e]xpr' special key to use as search term
-example_replacement  # - term to replace with
-yyyynnyy<esc>        # - since 'c' flag is supplied to search/replace, confirm which
+example.replacement  # - term to replace with
+yyyy<esc>            # - since 'c' flag is supplied to search/replace, confirm which
                      #   matches to search and replace
 uuuuuu               # - undo changes
 <leader>h            # - finish by disabling search term highlighting
@@ -72,7 +72,31 @@ uuuuuu               # - undo changes
 
 ### Search and Replace Visual Charwise as Search String
 
+![Search and Replace Visual Charwise as Search String
+](https://user-images.githubusercontent.com/226654/210175020-aaa1a6fa-7fb8-4d87-ade6-20fa391e1a57.gif)
+
+``` lua
+v                    # - highlight the string to be replaced with visual-charwise mode
+<ctrl-r>             # - key binding to replace with selection
+example_replacement  # - term to replace with
+yyyynnyy<esc>        # - since 'c' flag is supplied to search/replace, confirm which
+                     #   matches to search and replace
+uuuuuu               # - undo changes
+<leader>h            # - finish by disabling search term highlighting
+```
+
 ### Search and Replace Across Visual (Blockwise/Linewise) Selection
+
+``` lua
+V                    # - highlight multiple lines with a visual-linewise selection
+<ctrl-b>             # - key binding to open search across block
+lvim                 # - term to search
+example_replacement  # - term to replace with
+yyyynnyy<esc>        # - since 'c' flag is supplied to search/replace, confirm which
+                     #   matches to search and replace
+uuuuuu               # - undo changes
+<leader>h            # - finish by disabling search term highlighting
+```
 
 ## :zap: What are Special Selections?
 
