@@ -41,6 +41,7 @@ The following is true
 ``` lua
 # Selection:
 lv|im.builtin.which_key.mappings["r"]["w"]
+
 # Value:
 lvim
 ```
@@ -48,6 +49,7 @@ lvim
 ``` lua
 # Selection:
 lvim.bui|ltin.which_key.mappings["r"]["w"]
+
 # Value:
 builtin
 ```
@@ -55,6 +57,7 @@ builtin
 ``` lua
 # Selection:
 lvim.builtin.whi|ch_key.mappings["r"]["w"]
+
 # Value:
 which_key
 ```
@@ -62,6 +65,7 @@ which_key
 ``` lua
 # Selection:
 lvim.builtin.which_key.mapp|ings["r"]["w"]
+
 # Value:
 mappings
 ```
@@ -73,6 +77,7 @@ mappings
 ``` lua
 # Selection:
 lv|im.builtin.which_key.mappings["r"]["w"]
+
 # Value:
 lvim.builtin.which_key.mappings["r"]["w"]
 ```
@@ -80,6 +85,7 @@ lvim.builtin.which_key.mappings["r"]["w"]
 ``` lua
 # Selection:
 lvim.builtin.whi|ch_key.mappings["r"]["w"]
+
 # Value:
 lvim.builtin.which_key.mappings["r"]["w"]
 ```
