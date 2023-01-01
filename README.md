@@ -24,20 +24,30 @@ along with a command which shows the values of each selection at any time.
 
 ## Commands
 
+### Single Buffer Special Key Search
+
 * `SearchReplaceSingleBufferCWord`
 * `SearchReplaceSingleBufferCWORD`
 * `SearchReplaceSingleBufferCExpr`
 * `SearchReplaceSingleBufferCFile`
+
+### Multi Buffer Special Key Search
 
 * `SearchReplaceMultiBufferCWord`
 * `SearchReplaceMultiBufferCWORD`
 * `SearchReplaceMultiBufferCExpr`
 * `SearchReplaceMultiBufferCFile`
 
+### Single/Multibuffer UI Special Key Search Hinting
+
 * `SearchReplaceSingleBufferSelections`
 * `SearchReplaceMultiBufferSelections`
 
+### Visual Charwise As Search
+
 * `SearchReplaceSingleBufferWithinBlock`
+
+### Visual (Blockwise/Linewise) Selection Search
 
 * `SearchReplaceVisualSelection`
 * `SearchReplaceVisualSelectionCWord`
