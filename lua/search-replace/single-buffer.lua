@@ -4,12 +4,13 @@ local util = require("search-replace.util")
 local config = require("search-replace.config")
 
 M.search_replace = function(pattern)
-	local left_keypresses = string.rep("\\<Left>", string.len(config.options["default_replace_options"]) + 1)
+	local left_keypresses =
+		string.rep("\\<Left>", string.len(config.options["default_replace_single_buffer_options"]) + 1)
 	vim.cmd(
 		':call feedkeys(":%s/'
 			.. util.double_escape(pattern)
 			.. "//"
-			.. config.options["default_replace_options"]
+			.. config.options["default_replace_single_buffer_options"]
 			.. left_keypresses
 			.. '")'
 	)
@@ -24,7 +25,8 @@ M.visual_selection = function()
 	end
 
 	local backspace_keypresses = string.rep("\\<backspace>", 5)
-	local left_keypresses = string.rep("\\<Left>", string.len(config.options["default_replace_options"]) + 1)
+	local left_keypresses =
+		string.rep("\\<Left>", string.len(config.options["default_replace_single_buffer_options"]) + 1)
 
 	vim.cmd(
 		':call feedkeys(":'
@@ -32,7 +34,7 @@ M.visual_selection = function()
 			.. "%s/"
 			.. util.double_escape(visual_selection)
 			.. "//"
-			.. config.options["default_replace_options"]
+			.. config.options["default_replace_single_buffer_options"]
 			.. left_keypresses
 			.. '")'
 	)
