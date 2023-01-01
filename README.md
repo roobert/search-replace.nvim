@@ -26,6 +26,9 @@ This plugin adds commands which can be bound to keymaps, which-key, and/or
 
 ## :movie_camera: Demos
 
+Most of the following examples use `which-key` and `leader` key bindings but the available plugin commands can
+be bound to any keymapping.
+
 ### Search and Replace
 
 ![Search and Replace](https://user-images.githubusercontent.com/226654/210172762-43f8e985-c6ea-4ab2-9c5a-1e9e303ce9d7.gif)
@@ -36,12 +39,33 @@ lvim                 # - term to search
 example_replacement  # - term to replace with
 yyyynnyy<esc>        # - since 'c' flag is supplied to search/replace, confirm which
                      #   matches to search and replace
-<leader>h            # - finish by disabling highlighting
+uuuuuu               # - undo changes
+<leader>h            # - finish by disabling search term highlighting
 ```
 
 ### Search and Replace with Special Keys
 
+``` lua
+<leader>rw           # - open which-key 'replace' sub-menu, then use '[w]ord' under
+                     #   cursor as search term
+example_replacement  # - term to replace with
+yyyynnyy<esc>        # - since 'c' flag is supplied to search/replace, confirm which
+                     #   matches to search and replace
+uuuuuu               # - undo changes
+<leader>h            # - finish by disabling search term highlighting
+```
+
 ### Search and Replace with Special Keys and Search Hinting UI
+
+``` lua
+<leader>rs           # - open which-key 'replace' sub-menu, then 'selections' UI
+w                    # - specify '[w]ord' special key to use as search term
+example_replacement  # - term to replace with
+yyyynnyy<esc>        # - since 'c' flag is supplied to search/replace, confirm which
+                     #   matches to search and replace
+uuuuuu               # - undo changes
+<leader>h            # - finish by disabling search term highlighting
+```
 
 ### Search and Replace Visual Charwise as Search String
 
