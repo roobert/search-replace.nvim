@@ -160,35 +160,35 @@ lvim.builtin.which_key.mappings
 
 ## :microscope: Available Commands
 
-### Single Buffer Empty Search
+### Single Buffer - Open Search
 
-* `SearchReplaceSingleBuffer`
-* `SearchReplaceMultiBuffer`
+* `SearchReplaceSingleBufferOpen`
+* `SearchReplaceMultiBufferOpen`
 
-### Single Buffer Special Key Search
+### Single Buffer - Open Search with Special Key as Search Term
 
 * `SearchReplaceSingleBufferCWord`
 * `SearchReplaceSingleBufferCWORD`
 * `SearchReplaceSingleBufferCExpr`
 * `SearchReplaceSingleBufferCFile`
 
-### Multi Buffer Special Key Search
+### Multi Buffer - Open Search with Special Key as Search Term
 
 * `SearchReplaceMultiBufferCWord`
 * `SearchReplaceMultiBufferCWORD`
 * `SearchReplaceMultiBufferCExpr`
 * `SearchReplaceMultiBufferCFile`
 
-### Single/Multi Buffer UI Special Key Search Hinting
+### Single/Multi Buffer UI - Show Special Key Values and Shortcuts to Open Search Replace
 
 * `SearchReplaceSingleBufferSelections`
 * `SearchReplaceMultiBufferSelections`
 
-### Visual Charwise As Search String
+### Single Buffer - Visual Charwise as Search Term
 
 * `SearchReplaceSingleBufferWithinBlock`
 
-### Visual (Blockwise/Linewise) Selection Search
+### Search over Visual (Blockwise/Linewise) Selection
 
 * `SearchReplaceVisualSelection`
 * `SearchReplaceVisualSelectionCWord`
