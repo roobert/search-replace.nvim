@@ -32,7 +32,7 @@ just as easily be mapped to `<C-r>` for faster access.
 
 ### Search and Replace
 
-![Search and Replace](https://user-images.githubusercontent.com/226654/210172762-43f8e985-c6ea-4ab2-9c5a-1e9e303ce9d7.gif)
+![Search and Replace](https://user-images.githubusercontent.com/226654/210173887-45b157ef-eb4b-4a6e-9442-29f7010d3084.gif)
 
 ``` lua
 <leader>ro           # - open which-key 'replace' sub-menu, then 'open' a search
@@ -45,6 +45,8 @@ uuuuuu               # - undo changes
 ```
 
 ### Search and Replace with Special Keys
+
+![Search and Replace with Special Keys](https://user-images.githubusercontent.com/226654/210173893-11f0189e-2971-4f23-93da-a915e8ede0dd.gif)
 
 ``` lua
 <leader>rw           # - open which-key 'replace' sub-menu, then use '[w]ord' under
