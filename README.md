@@ -2,10 +2,7 @@
 
 ![Screenshot](https://user-images.githubusercontent.com/226654/210175428-82e56d0c-0db2-418a-b74c-1ab5a03b3530.gif)
 
-A Neovim search and replace plugin that builds on the native search and replace experience. See the [Demos](https://github.com/roobert/search-replace.nvim#movie_camera-demos)
-
-Neovim has an excellent search and replace system however it can be slow to use due to the
-number of key-strokes it takes to use it.
+Supercharge the native Neovim search and replace experience!
 
 ## :sparkles: Features
 
