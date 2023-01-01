@@ -32,7 +32,7 @@ lvim.builtin.which_key.mappings["r"]["w"]
 
 And the cursor position shown as `|`
 
-The following is true
+The following examples are `true`.
 
 ### CWord
 
