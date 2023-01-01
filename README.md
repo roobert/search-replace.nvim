@@ -39,7 +39,7 @@ number of key-strokes required to use it.
 ### Single Buffer Empty Search
 
 * `SearchReplaceSingleBuffer`
-* `SearchReplaceMultiBufferCWord`
+* `SearchReplaceMultiBuffer`
 
 ### Single Buffer Special Key Search
 
