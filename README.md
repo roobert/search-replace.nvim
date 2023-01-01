@@ -4,8 +4,10 @@
 
 A Neovim search and replace plugin that builds on the native search and replace experience.
 
-Neovim has an excellent search and replace system, however it can be slow to use due to the
+Neovim has an excellent search and replace system however it can be slow to use due to the
 number of key-strokes required to use it.
+
+This plugin adds commands which can be bound to keymaps, which-key, and/or
 
 ## :sparkles: Features
 
@@ -25,6 +27,8 @@ number of key-strokes required to use it.
 ## :movie_camera: Demos
 
 ### Search and Replace
+
+![Search and Replace](https://user-images.githubusercontent.com/226654/210172471-c89511c2-7fff-44f3-bb9e-09e560048aef.gif)
 
 ### Search and Replace with Special Keys
 
