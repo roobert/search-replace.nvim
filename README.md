@@ -1,4 +1,4 @@
-# :mag_right: search-replace.nvim
+# :monocle_face: search-replace.nvim
 
 ![a](https://user-images.githubusercontent.com/226654/210119753-8951db87-e7e1-48c7-a75d-e3c5f222d702.gif)
 
