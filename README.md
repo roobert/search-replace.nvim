@@ -7,7 +7,7 @@ A Neovim search and replace plugin that builds on the native search and replace 
 Neovim has an excellent search and replace system, however it can be slow to use due to the
 number of key-strokes required to use it.
 
-## Features
+## :sparkles: Features
 
 * Quick opening of `:%s///gcI`
 * Quick opening of `:%s/<special selection>//` where `<special selection>` refers to a
@@ -22,7 +22,7 @@ number of key-strokes required to use it.
   selection
 * Example key mappings
 
-## What are Special Selections?
+## :zap: What are Special Selections?
 
 ### CWord
 
@@ -32,9 +32,9 @@ number of key-strokes required to use it.
 
 ### CFile
 
-## Demos
+## :movie_camera: Demos
 
-## Available Commands
+## :microscope: Available Commands
 
 ### Single Buffer Empty Search
 
