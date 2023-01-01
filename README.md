@@ -72,7 +72,7 @@ number of key-strokes required to use it.
 * `SearchReplaceVisualSelectionCExpr`
 * `SearchReplaceVisualSelectionCFile`
 
-## Usage
+## :rocket: Usage
 
 ### Plugin Management
 
