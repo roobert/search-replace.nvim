@@ -1,28 +1,33 @@
-# search-replace.nvim
+# :mag_right: search-replace.nvim
 
 ![a](https://user-images.githubusercontent.com/226654/210119753-8951db87-e7e1-48c7-a75d-e3c5f222d702.gif)
 
-A simple search/replace plugin that uses native vim search and replace.
+A Neovim search and replace plugin that builds on the native search and replace experience.
 
-Neovim has super-powerful search and replace, however, it can be slow to use due to the
+Neovim has an excellent search and replace system, however it can be slow to use due to the
 number of key-strokes required to use it.
 
-This plugin provides commands that references the different built-in special selections
+This plugin provides commands that reference the different built-in special selections
 along with a command which shows the values of each selection at any time.
 
-## Features
+## What are Special Selection?
 
-* Allow pre-population of the search field using the values referenced by `special` keys (see: `:help cmdline-special`):
-  * `<cword>`
-  * `<cWORD>`
-  * `<cfile>`
-  * `<cexpr>`
-* Allow previewing the values of the `special` keys via a pop-up buffer prior to making
-  a substitution
-* Allow searching/replacing over multiple buffers
-* Allow using a visual-selection as the search string
+### CWord
 
-## Commands
+### CWORD
+
+### CExpr
+
+### CFile
+
+## Demos
+
+## Available Commands
+
+### Single Buffer Empty Search
+
+* `SearchReplaceSingleBuffer`
+* `SearchReplaceMultiBufferCWord`
 
 ### Single Buffer Special Key Search
 
@@ -65,11 +70,11 @@ along with a command which shows the values of each selection at any time.
 {
   "roobert/search-replace.nvim",
   config = function()
-   require("search-replace").setup({
-     -- optionally override defaults
-     default_replace_single_buffer_options = "gcI",
-     default_replace_multi_buffer_options = "egcI",
-   })
+    require("search-replace").setup({
+      -- optionally override defaults
+      default_replace_single_buffer_options = "gcI",
+      default_replace_multi_buffer_options = "egcI",
+    })
   end,
 }
 ```
