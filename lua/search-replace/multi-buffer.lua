@@ -4,8 +4,16 @@ local util = require("search-replace.util")
 local config = require("search-replace.config")
 
 M.search_replace = function(pattern)
+	local shift = 0
+
+	if string.len(pattern) == 0 then
+		shift = 2
+	else
+		shift = 1
+	end
+
 	local left_keypresses =
-		string.rep("\\<Left>", string.len(config.options["default_replace_multi_buffer_options"]) + 1)
+		string.rep("\\<Left>", string.len(config.options["default_replace_multi_buffer_options"]) + shift)
 	vim.cmd(
 		':call feedkeys(":bufdo %s/'
 			.. util.double_escape(pattern)
@@ -38,6 +46,10 @@ M.visual_charwise_selection = function()
 			.. left_keypresses
 			.. '")'
 	)
+end
+
+M.open = function()
+	M.search_replace("")
 end
 
 M.cword = function()

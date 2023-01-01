@@ -10,6 +10,7 @@ local function setup_commands_single_buffer()
 
 	cmd("SearchReplaceSingleBufferSelections", ui.single_buffer_selections, {})
 
+	cmd("SearchReplaceSingleBufferOpen", single_buffer.open, {})
 	cmd("SearchReplaceSingleBufferCWord", single_buffer.cword, {})
 	cmd("SearchReplaceSingleBufferCWORD", single_buffer.cWORD, {})
 	cmd("SearchReplaceSingleBufferCExpr", single_buffer.cexpr, {})
@@ -26,6 +27,7 @@ local function setup_commands_multi_buffer()
 
 	cmd("SearchReplaceMultiBufferSelections", ui.multi_buffer_selections, {})
 
+	cmd("SearchReplaceMultiBufferOpen", multi_buffer.open, {})
 	cmd("SearchReplaceMultiBufferCWord", multi_buffer.cword, {})
 	cmd("SearchReplaceMultiBufferCWORD", multi_buffer.cWORD, {})
 	cmd("SearchReplaceMultiBufferCExpr", multi_buffer.cexpr, {})
