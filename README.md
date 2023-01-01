@@ -27,7 +27,8 @@ This plugin adds commands which can be bound to keymaps, which-key, and/or
 ## :movie_camera: Demos
 
 Most of the following examples use `which-key` and `leader` key bindings but the available plugin commands can
-be bound to any keymapping.
+be bound to any keymapping, for replacement opening is bound to `<leader>ro` but could
+just as easily be mapped to `<C-r>` for faster access.
 
 ### Search and Replace
 
