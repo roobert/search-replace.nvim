@@ -16,11 +16,11 @@ M.search_replace = function(pattern)
 	)
 end
 
-M.visual_selection = function()
+M.visual_charwise_selection = function()
 	local visual_selection = util.get_visual_selection()
 
 	if visual_selection == nil then
-		print("search-replace does not support replacing visual blocks")
+		print("search-replace does not support visual-blockwise selections")
 		return
 	end
 

@@ -22,6 +22,29 @@ along with a command which shows the values of each selection at any time.
 * Allow searching/replacing over multiple buffers
 * Allow using a visual-selection as the search string
 
+## Commands
+
+* `SearchReplaceSingleBufferCWord`
+* `SearchReplaceSingleBufferCWORD`
+* `SearchReplaceSingleBufferCExpr`
+* `SearchReplaceSingleBufferCFile`
+
+* `SearchReplaceMultiBufferCWord`
+* `SearchReplaceMultiBufferCWORD`
+* `SearchReplaceMultiBufferCExpr`
+* `SearchReplaceMultiBufferCFile`
+
+* `SearchReplaceSingleBufferSelections`
+* `SearchReplaceMultiBufferSelections`
+
+* `SearchReplaceSingleBufferWithinBlock`
+
+* `SearchReplaceVisualSelection`
+* `SearchReplaceVisualSelectionCWord`
+* `SearchReplaceVisualSelectionCWORD`
+* `SearchReplaceVisualSelectionCExpr`
+* `SearchReplaceVisualSelectionCFile`
+
 ## Usage
 
 ### Plugin Management
@@ -57,8 +80,6 @@ lvim.builtin.which_key.mappings["r"]["e"] =
  { "<CMD>SearchReplaceSingleBufferCExpr<CR>", "SearchReplaceSingleBuffer [e]xpr" }
 lvim.builtin.which_key.mappings["r"]["f"] =
  { "<CMD>SearchReplaceSingleBufferCFile<CR>", "SearchReplaceSingleBuffer [f]ile" }
-lvim.builtin.which_key.mappings["r"]["b"] =
- { "<CMD>SearchReplaceSingleBufferBlock<CR>", "SearchReplaceSingleBuffer [b]lock" }
 
 lvim.builtin.which_key.mappings["r"]["b"] = { name = "SearchReplaceMultiBuffer" }
 lvim.builtin.which_key.mappings["r"]["b"]["s"] =
@@ -72,6 +93,6 @@ lvim.builtin.which_key.mappings["r"]["b"]["e"] =
 lvim.builtin.which_key.mappings["r"]["b"]["f"] =
  { "<CMD>SearchReplaceMultiBufferCFile<CR>", "SearchReplaceMultiBuffer [f]ile" }
 
-lvim.keys.visual_block_mode["<C-b>"] = [[<CMD>SearchReplaceSingleBufferWithinBlock<CR>]]
 lvim.keys.visual_block_mode["<C-r>"] = [[<CMD>SearchReplaceSingleBufferVisualSelection<CR>]]
+lvim.keys.visual_block_mode["<C-b>"] = [[<CMD>SearchReplaceWithinVisualSelectionCWord<CR>]]
 ```

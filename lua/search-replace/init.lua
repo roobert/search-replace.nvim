@@ -15,17 +15,10 @@ local function setup_commands_single_buffer()
 	cmd("SearchReplaceSingleBufferCExpr", single_buffer.cexpr, {})
 	cmd("SearchReplaceSingleBufferCFile", single_buffer.cfile, {})
 
-	-- cmd(
-	-- 	"SearchReplaceSingleBufferVisualSelection",
-	-- 	single_buffer.search_replace_single_buffer_visual_selection,
-	-- 	{ range = true }
-	-- )
-
-	-- cmd(
-	-- 	"SearchReplaceSingleBufferWithinBlock",
-	-- 	single_buffer.search_replace_single_buffer_within_block,
-	-- 	{ range = true }
-	-- )
+	-- NOTE:
+	-- visual selection search/replace - only available via a key binding/direct
+	-- call since it's not possible to use leader key bindings in visual mode
+	cmd("SearchReplaceSingleBufferVisualSelection", single_buffer.visual_charwise_selection, { range = true })
 end
 
 local function setup_commands_multi_buffer()
@@ -38,11 +31,20 @@ local function setup_commands_multi_buffer()
 	cmd("SearchReplaceMultiBufferCExpr", multi_buffer.cexpr, {})
 	cmd("SearchReplaceMultiBufferCFile", multi_buffer.cfile, {})
 
-	-- cmd(
-	-- 	"SearchReplaceMultiBufferVisualSelection",
-	-- 	multi_buffer.search_replace_multi_buffer_visual_selection,
-	-- 	{ range = true }
-	-- )
+	-- NOTE:
+	-- visual selection search/replace - only available via a key binding/direct
+	-- call since it's not possible to use leader key bindings in visual mode
+	cmd("SearchReplaceMultiBufferVisualSelection", multi_buffer.visual_charwise_selection, { range = true })
+end
+
+local function setup_commands_visual_selections()
+	local visual_multitype = require("search-replace.visual-multitype")
+
+	cmd("SearchReplaceWithinVisualSelection", visual_multitype.within, { range = true })
+	cmd("SearchReplaceWithinVisualSelectionCWord", visual_multitype.within_cword, { range = true })
+	cmd("SearchReplaceWithinVisualSelectionCWORD", visual_multitype.within_cWORD, { range = true })
+	cmd("SearchReplaceWithinVisualSelectionCExpr", visual_multitype.within_cexpr, { range = true })
+	cmd("SearchReplaceWithinVisualSelectionCFile", visual_multitype.within_cfile, { range = true })
 end
 
 M.setup = function(options)
@@ -53,6 +55,7 @@ M.setup = function(options)
 
 	setup_commands_single_buffer()
 	setup_commands_multi_buffer()
+	setup_commands_visual_selections()
 end
 
 return M

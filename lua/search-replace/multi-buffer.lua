@@ -16,15 +16,28 @@ M.search_replace = function(pattern)
 	)
 end
 
-M.search_replace_multi_buffer_visual_selection = function()
+M.visual_charwise_selection = function()
 	local visual_selection = util.get_visual_selection()
 
 	if visual_selection == nil then
-		print("search-replace does not support replacing visual blocks")
+		print("search-replace does not support visual-blockwise selections")
 		return
 	end
 
-	M.search_replace_multi_buffer(visual_selection)
+	local backspace_keypresses = string.rep("\\<backspace>", 5)
+	local left_keypresses =
+		string.rep("\\<Left>", string.len(config.options["default_replace_multi_buffer_options"]) + 1)
+
+	vim.cmd(
+		':call feedkeys(":'
+			.. backspace_keypresses
+			.. "%s/"
+			.. util.double_escape(visual_selection)
+			.. "//"
+			.. config.options["default_replace_multi_buffer_options"]
+			.. left_keypresses
+			.. '")'
+	)
 end
 
 M.cword = function()
