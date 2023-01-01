@@ -59,8 +59,6 @@ lvim.builtin.which_key.mappings["r"]["f"] =
  { "<CMD>SearchReplaceSingleBufferCFile<CR>", "SearchReplaceSingleBuffer [f]ile" }
 lvim.builtin.which_key.mappings["r"]["b"] =
  { "<CMD>SearchReplaceSingleBufferBlock<CR>", "SearchReplaceSingleBuffer [b]lock" }
-lvim.keys.visual_block_mode["<C-b>"] = [[<CMD>SearchReplaceSingleBufferWithinBlock<CR>]]
-lvim.keys.visual_block_mode["<C-r>"] = [[<CMD>SearchReplaceSingleBufferVisualSelection<CR>]]
 
 lvim.builtin.which_key.mappings["r"]["b"] = { name = "SearchReplaceMultiBuffer" }
 lvim.builtin.which_key.mappings["r"]["b"]["s"] =
@@ -73,4 +71,7 @@ lvim.builtin.which_key.mappings["r"]["b"]["e"] =
  { "<CMD>SearchReplaceMultiBufferCExpr<CR>", "SearchReplaceMultiBuffer [e]xpr" }
 lvim.builtin.which_key.mappings["r"]["b"]["f"] =
  { "<CMD>SearchReplaceMultiBufferCFile<CR>", "SearchReplaceMultiBuffer [f]ile" }
+
+lvim.keys.visual_block_mode["<C-b>"] = [[<CMD>SearchReplaceSingleBufferWithinBlock<CR>]]
+lvim.keys.visual_block_mode["<C-r>"] = [[<CMD>SearchReplaceSingleBufferVisualSelection<CR>]]
 ```
