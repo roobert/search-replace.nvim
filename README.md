@@ -24,13 +24,97 @@ number of key-strokes required to use it.
 
 ## :zap: What are Special Selections?
 
+With the following example text:
+
+``` lua
+lvim.builtin.which_key.mappings["r"]["w"]
+```
+
+And the cursor position shown as `|`
+
+The following is true
+
 ### CWord
+
+`CWord` is replaced with the word under the cursor (see `star`)
+
+``` lua
+# Selection:
+lv|im.builtin.which_key.mappings["r"]["w"]
+# Value:
+lvim
+```
+
+``` lua
+# Selection:
+lvim.bui|ltin.which_key.mappings["r"]["w"]
+# Value:
+builtin
+```
+
+``` lua
+# Selection:
+lvim.builtin.whi|ch_key.mappings["r"]["w"]
+# Value:
+which_key
+```
+
+``` lua
+# Selection:
+lvim.builtin.which_key.mapp|ings["r"]["w"]
+# Value:
+mappings
+```
 
 ### CWORD
 
+`CWORD` is replaced with the WORD under the cursor (see `WORD`)
+
+``` lua
+# Selection:
+lv|im.builtin.which_key.mappings["r"]["w"]
+# Value:
+lvim.builtin.which_key.mappings["r"]["w"]
+```
+
+``` lua
+# Selection:
+lvim.builtin.whi|ch_key.mappings["r"]["w"]
+# Value:
+lvim.builtin.which_key.mappings["r"]["w"]
+```
+
 ### CExpr
 
+`CExpr` is replaced with the word under the cursor, including more to form a C expression.
+
+``` lua
+# Selection:
+lvim.bui|ltin.which_key.mappings["r"]["w"]
+
+# Value:
+lvim.builtin
+```
+
+``` lua
+# Selection:
+lvim.builtin.wh|ich_key.mappings["r"]["w"]
+
+# Value:
+lvim.builtin.which_key
+```
+
+``` lua
+# Selection:
+lvim.builtin.which_key.map|pings["r"]["w"]
+
+# Value:
+lvim.builtin.which_key.mappings
+```
+
 ### CFile
+
+`CFile` is replaced with the path name under the cursor (like what `gf` uses)
 
 ## :movie_camera: Demos
 
