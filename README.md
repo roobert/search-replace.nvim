@@ -7,7 +7,7 @@ A Neovim search and replace plugin that builds on the native search and replace 
 Neovim has an excellent search and replace system, however it can be slow to use due to the
 number of key-strokes required to use it.
 
-This plugin provides:
+## Features
 
 * Quick opening of `:%s///`
 * Quick opening of `:%s/<special selection>//` where `<special selection>` refers to a
