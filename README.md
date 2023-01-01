@@ -11,7 +11,7 @@ This plugin provides:
 
 * Quick opening of `:%s///`
 * Quick opening of `:%s/<special selection>//` where `<special selection>` refers to a
-  predefined selection under the cursor
+  predefined selection under the cursor. Please see: [What are Special Selections?](https://github.com/roobert/search-replace.nvim#what-are-special-selection)
 * A UI to preview the current special selections under the cursor
 * Quick opening of `:%s/<visual selection>//gcI` where `<visual selection>` is a
   visual-charwise selection
@@ -21,7 +21,7 @@ This plugin provides:
   selection
 * Example key mappings
 
-## What are Special Selection?
+## What are Special Selections?
 
 ### CWord
 
