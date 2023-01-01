@@ -11,7 +11,7 @@ number of key-strokes required to use it.
 
 * Quick opening of `:%s///gcI`
 * Quick opening of `:%s/<special selection>//` where `<special selection>` refers to a
-  predefined selection under the cursor. Please see: [What are Special Selections?](https://github.com/roobert/search-replace.nvim#what-are-special-selection)
+  predefined selection under the cursor. Please see: [What are Special Selections?](https://github.com/roobert/search-replace.nvim#zap-what-are-special-selections)
 * A UI to preview the current special selections under the cursor
 * Quick opening of `:%s/<visual selection>//gcI` where `<visual selection>` is a
   visual-charwise selection
