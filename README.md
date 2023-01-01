@@ -28,7 +28,7 @@ This plugin adds commands which can be bound to keymaps, which-key, and/or
 
 ### Search and Replace
 
-![Search and Replace](https://user-images.githubusercontent.com/226654/210172628-209552cd-f8b0-4538-95c8-44aef3fb4d25.gif)
+![Search and Replace](https://user-images.githubusercontent.com/226654/210172687-14fd8e54-58be-40bd-bff3-63dbce876c88.gif)
 
 ### Search and Replace with Special Keys
 
