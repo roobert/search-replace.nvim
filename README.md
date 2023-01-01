@@ -87,14 +87,16 @@ uuuuuu               # - undo changes
 
 ### Search and Replace Across Visual (Blockwise/Linewise) Selection
 
+![Search and Replace Across Visual Selection](https://user-images.githubusercontent.com/226654/210175210-0da9063b-e933-451d-bc90-2405ad9e03f0.gif)
+
 ``` lua
 V                    # - highlight multiple lines with a visual-linewise selection
 <ctrl-b>             # - key binding to open search across block
-lvim                 # - term to search
+                     # - move cursor to highlight search term
 example_replacement  # - term to replace with
-yyyynnyy<esc>        # - since 'c' flag is supplied to search/replace, confirm which
+yynn<esc>            # - since 'c' flag is supplied to search/replace, confirm which
                      #   matches to search and replace
-uuuuuu               # - undo changes
+uu                   # - undo changes
 <leader>h            # - finish by disabling search term highlighting
 ```
 
