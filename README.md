@@ -38,7 +38,7 @@ along with a command which shows the values of each selection at any time.
 * `SearchReplaceMultiBufferCExpr`
 * `SearchReplaceMultiBufferCFile`
 
-### Single/Multibuffer UI Special Key Search Hinting
+### Single/Multi Buffer UI Special Key Search Hinting
 
 * `SearchReplaceSingleBufferSelections`
 * `SearchReplaceMultiBufferSelections`
