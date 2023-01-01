@@ -5,9 +5,7 @@
 A Neovim search and replace plugin that builds on the native search and replace experience.
 
 Neovim has an excellent search and replace system however it can be slow to use due to the
-number of key-strokes required to use it.
-
-This plugin adds commands which can be bound to keymaps, which-key, and/or
+number of key-strokes it takes to use it.
 
 ## :sparkles: Features
 
