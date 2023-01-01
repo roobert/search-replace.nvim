@@ -59,9 +59,8 @@ local function create_win()
 	vim.api.nvim_win_set_option(win, "wrap", false)
 	vim.api.nvim_win_set_option(win, "cursorline", true)
 	vim.api.nvim_win_set_option(win, "number", false)
+	vim.api.nvim_win_set_option(win, "relativenumber", false)
 
-	-- FIXME:
-	-- * vim.api.nvim_buf_set_option(buf, "norelativenumber", true)
 	vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
 	vim.api.nvim_buf_set_option(buf, "swapfile", false)
 	vim.api.nvim_buf_set_option(buf, "bufhidden", "wipe")
