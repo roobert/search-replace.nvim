@@ -36,7 +36,7 @@ The following is true
 
 ### CWord
 
-`CWord` is replaced with the word under the cursor (see `star`)
+`CWord` is replaced with the `word` under the cursor (like `*`)
 
 ``` lua
 # Selection:
@@ -72,7 +72,7 @@ mappings
 
 ### CWORD
 
-`CWORD` is replaced with the WORD under the cursor (see `WORD`)
+`CWORD` is replaced with the `WORD` under the cursor (like greedy `word`)
 
 ``` lua
 # Selection:
@@ -92,7 +92,7 @@ lvim.builtin.which_key.mappings["r"]["w"]
 
 ### CExpr
 
-`CExpr` is replaced with the word under the cursor, including more to form a C expression.
+`CExpr` is replaced with the `word` under the cursor, including more to form a C expression.
 
 ``` lua
 # Selection:
@@ -121,6 +121,30 @@ lvim.builtin.which_key.mappings
 ### CFile
 
 `CFile` is replaced with the path name under the cursor (like what `gf` uses)
+
+``` lua
+# Selection:
+lvim.bui|ltin.which_key.mappings["r"]["w"]
+^^^^^^^^^^^^^
+# Value:
+lvim.builtin
+```
+
+``` lua
+# Selection:
+lvim.builtin.wh|ich_key.mappings["r"]["w"]
+^^^^^^^^^^^^^^^^^^^^^^^
+# Value:
+lvim.builtin.which_key
+```
+
+``` lua
+# Selection:
+lvim.builtin.which_key.map|pings["r"]["w"]
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+# Value:
+lvim.builtin.which_key.mappings
+```
 
 ## :movie_camera: Demos
 
