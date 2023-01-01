@@ -22,6 +22,18 @@ number of key-strokes required to use it.
   selection
 * Example key mappings
 
+## :movie_camera: Demos
+
+### Search and Replace
+
+### Search and Replace with Special Keys
+
+### Search and Replace with Special Keys and Search Hinting UI
+
+### Search and Replace Visual Charwise as Search String
+
+### Search and Replace Across Visual (Blockwise/Linewise) Selection
+
 ## :zap: What are Special Selections?
 
 With the following example text:
@@ -145,18 +157,6 @@ lvim.builtin.which_key.map|pings["r"]["w"]
 # Value:
 lvim.builtin.which_key.mappings
 ```
-
-## :movie_camera: Demos
-
-### Search and Replace
-
-### Search and Replace with Special Keys
-
-### Search and Replace with Special Keys and Search Hinting UI
-
-### Search and Replace Visual Charwise as Search String
-
-### Search and Replace Across Visual (Blockwise/Linewise) Selection
 
 ## :microscope: Available Commands
 
