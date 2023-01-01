@@ -58,9 +58,13 @@ uuuuuu               # - undo changes
 
 ### Search and Replace with Special Keys and Search Hinting UI
 
+![Search and Replace with Special Keys and Search Hinting UI
+](https://user-images.githubusercontent.com/226654/210174276-5dd39c57-2ce7-4de0-bc2a-274cd5b4a677.gif)
+
 ``` lua
+                     # - move to end of expression to replace
 <leader>rs           # - open which-key 'replace' sub-menu, then 'selections' UI
-w                    # - specify '[w]ord' special key to use as search term
+e                    # - specify '[e]xpr' special key to use as search term
 example_replacement  # - term to replace with
 yyyynnyy<esc>        # - since 'c' flag is supplied to search/replace, confirm which
                      #   matches to search and replace
