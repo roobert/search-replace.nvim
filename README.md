@@ -7,8 +7,19 @@ A Neovim search and replace plugin that builds on the native search and replace 
 Neovim has an excellent search and replace system, however it can be slow to use due to the
 number of key-strokes required to use it.
 
-This plugin provides commands that reference the different built-in special selections
-along with a command which shows the values of each selection at any time.
+This plugin provides:
+
+* Quick opening of `:%s///`
+* Quick opening of `:%s/<special selection>//` where `<special selection>` refers to a
+  predefined selection under the cursor
+* A UI to preview the current special selections under the cursor
+* Quick opening of `:%s/<visual selection>//gcI` where `<visual selection>` is a
+  visual-charwise selection
+* Configuration of the default flags passed to search and replace
+* Support for search and replace over multiple buffers
+* A command to search and replace over a visual-block/visual-linewise/visual-charwise
+  selection
+* Example key mappings
 
 ## What are Special Selection?
 
