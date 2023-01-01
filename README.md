@@ -9,13 +9,14 @@ number of key-strokes required to use it.
 
 ## Features
 
-* Quick opening of `:%s///`
+* Quick opening of `:%s///gcI`
 * Quick opening of `:%s/<special selection>//` where `<special selection>` refers to a
   predefined selection under the cursor. Please see: [What are Special Selections?](https://github.com/roobert/search-replace.nvim#what-are-special-selection)
 * A UI to preview the current special selections under the cursor
 * Quick opening of `:%s/<visual selection>//gcI` where `<visual selection>` is a
   visual-charwise selection
-* Configuration of the default flags passed to search and replace
+* Configuration of the default flags passed to search and replace, e.g: `gcI` when
+  searching across a buffer with `:%s///gcI`
 * Support for search and replace over multiple buffers
 * A command to search and replace over a visual-block/visual-linewise/visual-charwise
   selection
