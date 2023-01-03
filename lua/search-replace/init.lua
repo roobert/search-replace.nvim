@@ -50,6 +50,10 @@ local function setup_commands_visual_selections()
 end
 
 M.setup = function(options)
+	if options == nil then
+		options = {}
+	end
+
 	-- merge user supplied options with defaults..
 	for k, v in pairs(options) do
 		config.options[k] = v
