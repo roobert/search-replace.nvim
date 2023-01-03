@@ -22,7 +22,7 @@ Supercharge the native Neovim search and replace experience!
 ## :movie_camera: Demos
 
 Most of the following examples use `which-key` and `leader` key bindings but the available plugin commands can
-be bound to any keymapping, for replacement opening is bound to `<leader>ro` but could
+be bound to any keymapping, for example replacement opening is bound to `<leader>ro` but could
 just as easily be mapped to `<C-r>` for faster access.
 
 ### Search and Replace
@@ -281,6 +281,55 @@ lvim.builtin.which_key.mappings
 ```
 
 ### Key Bindings
+
+#### Native Key Mapping
+
+``` lua
+vim.api.nvim_set_keymap("n", "<leader>", "<CMD>Search<CR>", { noremap = true, expr = true })
+```
+
+#### Which-Key
+
+``` lua
+local wk = require("which-key")
+-- As an example, we will create the following mappings:
+--  * <leader>ff find files
+--  * <leader>fr show recent files
+--  * <leader>fb Foobar
+-- we'll document:
+--  * <leader>fn new file
+--  * <leader>fe edit file
+-- and hide <leader>1
+
+wk.register({
+  r = {
+    name = "SearchReplaceSingleBuffer", -- optional group name
+    s = { "<CMD>SearchReplaceSingleBufferSelections<CR>", "SearchReplaceSingleBuffer [s]elction list" },
+    o = { "<CMD>SearchReplaceSingleBufferOpen<CR>", "[o]pen" },
+    w = { "<CMD>SearchReplaceSingleBufferCWord<CR>", "[w]ord" },
+    W = { "<CMD>SearchReplaceSingleBufferCWORD<CR>", "[W]ORD" },
+    e = { "<CMD>SearchReplaceSingleBufferCExpr<CR>", "[e]xpr" },
+    f = { "<CMD>SearchReplaceSingleBufferCFile<CR>", "[f]ile" },
+  },
+}, { prefix = "<leader>" })
+
+```
+
+```
+
+keymap["r"]["b"] = { name = "SearchReplaceMultiBuffer" }
+
+keymap["r"]["b"]["s"] =
+  { "<CMD>SearchReplaceMultiBufferSelections<CR>","SearchReplaceMultiBuffer [s]elction list" }
+keymap["r"]["b"]["o"] = { "<CMD>SearchReplaceMultiBufferOpen<CR>", "[o]pen" }
+keymap["r"]["b"]["w"] = { "<CMD>SearchReplaceMultiBufferCWord<CR>", "[w]ord" }
+keymap["r"]["b"]["W"] = { "<CMD>SearchReplaceMultiBufferCWORD<CR>", "[W]ORD" }
+keymap["r"]["b"]["e"] = { "<CMD>SearchReplaceMultiBufferCExpr<CR>", "[e]xpr" }
+keymap["r"]["b"]["f"] = { "<CMD>SearchReplaceMultiBufferCFile<CR>", "[f]ile" }
+
+lvim.keys.visual_block_mode["<C-r>"] = [[<CMD>SearchReplaceSingleBufferVisualSelection<CR>]]
+lvim.keys.visual_block_mode["<C-b>"] = [[<CMD>SearchReplaceWithinVisualSelectionCWord<CR>]]
+```
 
 #### Lunarvim / Which-Key
 
