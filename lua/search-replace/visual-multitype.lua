@@ -3,9 +3,6 @@ local M = {}
 local config = require("search-replace.config")
 local util = require("search-replace.util")
 
--- FIXME:
--- * is this a good feature?
-
 local within = function(pattern)
 	local shift = 0
 
