@@ -14,6 +14,7 @@ local within = function(pattern)
 
 	local left_keypresses =
 		string.rep("\\<Left>", string.len(config.options["default_replace_single_buffer_options"]) + shift)
+
 	vim.cmd(
 		':call feedkeys(":s/'
 			.. util.double_escape(pattern)

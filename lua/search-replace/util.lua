@@ -19,13 +19,14 @@ function M.get_visual_selection(nl_literal)
 		-- if we are in visual mode use the live position
 		_, csrow, cscol, _ = unpack(vim.fn.getpos("."))
 		_, cerow, cecol, _ = unpack(vim.fn.getpos("v"))
+
 		if mode == "V" then
 			-- visual line doesn't provide columns
 			cscol, cecol = 0, 999
 		end
 
 		-- exit visual mode
-		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
+		--vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
 	else
 		-- otherwise, use the last known visual position
 		_, csrow, cscol, _ = unpack(vim.fn.getpos("'<"))
@@ -42,6 +43,7 @@ function M.get_visual_selection(nl_literal)
 	end
 
 	local lines = vim.fn.getline(csrow, cerow)
+
 	-- local n = cerow-csrow+1
 	local n = #lines
 
@@ -56,6 +58,7 @@ function M.get_visual_selection(nl_literal)
 
 	lines[n] = string.sub(lines[n], 1, cecol)
 	lines[1] = string.sub(lines[1], cscol)
+
 	return table.concat(lines, nl_literal and "\\n" or "\n")
 end
 
