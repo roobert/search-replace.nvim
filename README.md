@@ -280,6 +280,17 @@ lvim.builtin.which_key.mappings
 }
 ```
 
+#### Packer.nvim
+
+``` lua
+ use({
+  "roobert/search-replace.nvim",
+  config = function()
+   require("search-replace").setup({})
+  end,
+ })
+```
+
 ### Key Bindings
 
 #### Standard Neovim
