@@ -261,7 +261,7 @@ lvim.builtin.which_key.mappings
 * `SearchReplaceVisualSelectionCExpr`
 * `SearchReplaceVisualSelectionCFile`
 
-## :rocket: Usage
+## :rocket: Installation
 
 ### Plugin Management
 
@@ -294,6 +294,8 @@ use({
   end,
 })
 ```
+
+## :hammer_and_wrench: Usage
 
 ### Key Bindings
 
