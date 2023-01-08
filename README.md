@@ -263,9 +263,7 @@ lvim.builtin.which_key.mappings
 
 ## :rocket: Installation
 
-### Plugin Management
-
-#### Lazy.nvim
+### Lazy.nvim
 
 ``` lua
 {
@@ -280,7 +278,7 @@ lvim.builtin.which_key.mappings
 }
 ```
 
-#### Packer.nvim
+### Packer.nvim
 
 ``` lua
 use({
@@ -297,9 +295,7 @@ use({
 
 ## :hammer_and_wrench: Usage
 
-### Key Bindings
-
-#### Standard Neovim
+### Standard Neovim
 
 ``` lua
 local opts = {}
@@ -325,7 +321,7 @@ vim.api.nvim_set_keymap("n", "<leader>rbf", "<CMD>SearchReplaceMultiBufferCFile<
 vim.o.inccommand = "split"
 ```
 
-#### Lunarvim / Which-Key
+### Lunarvim / Which-Key
 
 ``` lua
 keymap = lvim.builtin.which_key.mappings
