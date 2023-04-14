@@ -271,8 +271,14 @@ lvim.builtin.which_key.mappings
   config = function()
     require("search-replace").setup({
       -- optionally override defaults
-      default_replace_single_buffer_options = "gcI",
-      default_replace_multi_buffer_options = "egcI",
+      single_buffer = {
+        range = "%",
+        flags = "gcI",
+      },
+      multi_buffer = {
+        range = "%",
+        flags = "egcI",
+      },
     })
   end,
 }
@@ -286,8 +292,14 @@ use({
   config = function()
     require("search-replace").setup({
       -- optionally override defaults
-      default_replace_single_buffer_options = "gcI",
-      default_replace_multi_buffer_options = "egcI",
+      single_buffer = {
+        range = "%",
+        flags = "gcI",
+      },
+      multi_buffer = {
+        range = "%",
+        flags = "egcI",
+      },
     })
   end,
 })
