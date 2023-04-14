@@ -1,8 +1,14 @@
 local M = {}
 
 M.options = {
-	default_replace_single_buffer_options = "gcI",
-	default_replace_multi_buffer_options = "egcI",
+	single_buffer = {
+		range = "%",
+		flags = "gcI",
+	},
+	multi_buffer = {
+		range = "%",
+		flags = "egcI",
+	},
 }
 
 return M
