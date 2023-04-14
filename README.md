@@ -321,6 +321,38 @@ vim.api.nvim_set_keymap("n", "<leader>rbf", "<CMD>SearchReplaceMultiBufferCFile<
 vim.o.inccommand = "split"
 ```
 
+### Additional Neovim
+
+```lua
+local opts = {}
+vim.keymap.set("v", "<C-r>", "<CMD>SearchReplaceSingleBufferVisualSelection<CR>", opts)
+vim.keymap.set("v", "<C-s>", "<CMD>SearchReplaceWithinVisualSelection<CR>", opts)
+vim.keymap.set("v", "<C-b>", "<CMD>SearchReplaceWithinVisualSelectionCWord<CR>", opts)
+
+vim.keymap.set("n", "<leader>ro", require("search-replace.single-buffer").open, opts)
+
+-- you can set range opts (read more in ':h range')
+vim.keymap.set("n", "<leader>rw", function() require("search-replace.single-buffer").cword({range = ",$"}) end, opts)
+
+-- you can set flags for specific situations (read more in "h :s_flags")
+vim.keymap.set("n", "<leader>rW", function() require("search-replace.single-buffer").cWORD({flags = "g"}) end, opts)
+
+-- you can set both
+vim.keymap.set("n", "<leader>re", function()
+  require("search-replace.single-buffer").expr({range = ",$", flags = "gc"})
+end, opts)
+vim.keymap.set("n", "<leader>rf", require("search-replace.single-buffer").cfile, opts)
+
+vim.keymap.set("n", "<leader>rbs", require("search-replace.multi-buffer").open, opts)
+vim.keymap.set("n", "<leader>rbw", require("search-replace.multi-buffer").cword, opts)
+vim.keymap.set("n", "<leader>rbW", require("search-replace.multi-buffer").cWORD, opts)
+vim.keymap.set("n", "<leader>rbe", require("search-replace.multi-buffer").expr, opts)
+vim.keymap.set("n", "<leader>rbf", require("search-replace.multi-buffer").cfile, opts)
+
+-- show the effects of a search / replace in a live preview window
+vim.o.inccommand = "split"
+```
+
 ### Lunarvim / Which-Key
 
 ``` lua
@@ -329,7 +361,7 @@ keymap = lvim.builtin.which_key.mappings
 keymap["r"] = { name = "SearchReplaceSingleBuffer" }
 
 keymap["r"]["s"] =
-  { "<CMD>SearchReplaceSingleBufferSelections<CR>", "SearchReplaceSingleBuffer [s]elction list" }
+  { "<CMD>SearchReplaceSingleBufferSelections<CR>", "SearchReplaceSingleBuffer [s]election list" }
 keymap["r"]["o"] = { "<CMD>SearchReplaceSingleBufferOpen<CR>", "[o]pen" }
 keymap["r"]["w"] = { "<CMD>SearchReplaceSingleBufferCWord<CR>", "[w]ord" }
 keymap["r"]["W"] = { "<CMD>SearchReplaceSingleBufferCWORD<CR>", "[W]ORD" }
@@ -339,7 +371,7 @@ keymap["r"]["f"] = { "<CMD>SearchReplaceSingleBufferCFile<CR>", "[f]ile" }
 keymap["r"]["b"] = { name = "SearchReplaceMultiBuffer" }
 
 keymap["r"]["b"]["s"] =
-  { "<CMD>SearchReplaceMultiBufferSelections<CR>","SearchReplaceMultiBuffer [s]elction list" }
+  { "<CMD>SearchReplaceMultiBufferSelections<CR>","SearchReplaceMultiBuffer [s]election list" }
 keymap["r"]["b"]["o"] = { "<CMD>SearchReplaceMultiBufferOpen<CR>", "[o]pen" }
 keymap["r"]["b"]["w"] = { "<CMD>SearchReplaceMultiBufferCWord<CR>", "[w]ord" }
 keymap["r"]["b"]["W"] = { "<CMD>SearchReplaceMultiBufferCWORD<CR>", "[W]ORD" }
