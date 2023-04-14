@@ -15,14 +15,14 @@ M.search_replace = function(pattern, opts)
 	end
 
 	local left_keypresses =
-		string.rep("\\<Left>", string.len(config.options.single_buffer.flags) + shift)
+		string.rep("\\<Left>", string.len(opts.flags or config.options.single_buffer.flags) + shift)
 	vim.cmd(
 		':call feedkeys(":'
-			.. opts.range or config.options.single_buffer.range
+			.. (opts.range or config.options.single_buffer.range)
 			.. 's/'
 			.. util.double_escape(pattern)
 			.. "//"
-			.. opts.flags or config.options.single_buffer.flags
+			.. (opts.flags or config.options.single_buffer.flags)
 			.. left_keypresses
 			.. '")'
 	)
@@ -40,16 +40,16 @@ M.visual_charwise_selection = function(opts)
 
 	local backspace_keypresses = string.rep("\\<backspace>", 5)
 	local left_keypresses =
-		string.rep("\\<Left>", string.len(config.options.single_buffer.flags) + 1)
+		string.rep("\\<Left>", string.len(opts.flags or config.options.single_buffer.flags) + 1)
 
 	vim.cmd(
 		':call feedkeys(":'
 			.. backspace_keypresses
-			.. opts.range or config.options.single_buffer.range
+			.. (opts.range or config.options.single_buffer.range)
 			.. "s/"
 			.. util.double_escape(visual_selection)
 			.. "//"
-			.. opts.flags or config.options.single_buffer.flags
+			.. (opts.flags or config.options.single_buffer.flags)
 			.. left_keypresses
 			.. '")'
 	)
