@@ -3,7 +3,9 @@ local M = {}
 local util = require("search-replace.util")
 local config = require("search-replace.config")
 
-M.search_replace = function(pattern)
+M.search_replace = function(pattern, opts)
+	opts = opts or {}
+
 	local shift = 0
 
 	if string.len(pattern) == 0 then
@@ -13,18 +15,22 @@ M.search_replace = function(pattern)
 	end
 
 	local left_keypresses =
-		string.rep("\\<Left>", string.len(config.options["default_replace_single_buffer_options"]) + shift)
+		string.rep("\\<Left>", string.len(opts.flags or config.options.single_buffer.flags) + shift)
 	vim.cmd(
-		':call feedkeys(":%s/'
+		':call feedkeys(":'
+			.. (opts.range or config.options.single_buffer.range)
+			.. 's/'
 			.. util.double_escape(pattern)
 			.. "//"
-			.. config.options["default_replace_single_buffer_options"]
+			.. (opts.flags or config.options.single_buffer.flags)
 			.. left_keypresses
 			.. '")'
 	)
 end
 
-M.visual_charwise_selection = function()
+M.visual_charwise_selection = function(opts)
+	opts = opts or {}
+
 	local visual_selection = util.get_visual_selection()
 
 	if visual_selection == nil then
@@ -34,38 +40,39 @@ M.visual_charwise_selection = function()
 
 	local backspace_keypresses = string.rep("\\<backspace>", 5)
 	local left_keypresses =
-		string.rep("\\<Left>", string.len(config.options["default_replace_single_buffer_options"]) + 1)
+		string.rep("\\<Left>", string.len(opts.flags or config.options.single_buffer.flags) + 1)
 
 	vim.cmd(
 		':call feedkeys(":'
 			.. backspace_keypresses
-			.. "%s/"
+			.. (opts.range or config.options.single_buffer.range)
+			.. "s/"
 			.. util.double_escape(visual_selection)
 			.. "//"
-			.. config.options["default_replace_single_buffer_options"]
+			.. (opts.flags or config.options.single_buffer.flags)
 			.. left_keypresses
 			.. '")'
 	)
 end
 
-M.open = function()
-	M.search_replace("")
+M.open = function(opts)
+	M.search_replace("", opts)
 end
 
-M.cword = function()
-	M.search_replace(vim.fn.expand("<cword>"))
+M.cword = function(opts)
+	M.search_replace(vim.fn.expand("<cword>"), opts)
 end
 
-M.cWORD = function()
-	M.search_replace(vim.fn.expand("<cWORD>"))
+M.cWORD = function(opts)
+	M.search_replace(vim.fn.expand("<cWORD>"), opts)
 end
 
-M.cexpr = function()
-	M.search_replace(vim.fn.expand("<cexpr>"))
+M.cexpr = function(opts)
+	M.search_replace(vim.fn.expand("<cexpr>"), opts)
 end
 
-M.cfile = function()
-	M.search_replace(vim.fn.expand("<cfile>"))
+M.cfile = function(opts)
+	M.search_replace(vim.fn.expand("<cfile>"), opts)
 end
 
 return M
